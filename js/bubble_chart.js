@@ -1,18 +1,17 @@
-// <script src="https://d3js.org/d3.v4.min.js"></script>
-// <script>
-
-var svg = d3.select("svg"),
-  width = +svg.attr("width"),
-  height = +svg.attr("height");
+var svg = d3.select("svg")
+var width = +svg.attr("width")
+var height = +svg.attr("height");
 
 var format = d3.format(",d");
 
-var color = d3.scaleOrdinal(d3.schemeCategory20c);
+var color = d3.scaleOrdinal(d3.schemeCategory20);
 
+// sets the invisible dimensions of the bubbles container
 var pack = d3.pack()
   .size([width, height])
   .padding(1.5);
 
+// sets the test file as the data to be displayed
 d3.csv("/data/test.csv", function(d) {
 d.value = +d.value;
 if (d.value) return d;
@@ -58,3 +57,5 @@ node.append("text")
 node.append("title")
     .text(function(d) { return d.id + "\n" + format(d.value); });
 });
+
+// actions on hover
