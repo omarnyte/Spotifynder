@@ -1,6 +1,20 @@
 .related-artists-div {
-  width: 400px;  
+  width: 400px;
 
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.related-artists-div > h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.related-artists-div > ul {
+  margin-bottom: 5px; 
+}
+
+.related-artist-name {
+  padding-left: 5px;
+  margin: 1px;
 }

@@ -881,13 +881,45 @@ testJSONResp.artists.forEach(function(artist) {
 const relatedArtistsDiv = document.querySelector(".related-artists-div");
 
 const h1 = document.createElement("h1");
-h1.textContent = "Related Artists!";
+h1.textContent = "Related Artists";
 relatedArtistsDiv.appendChild(h1);
 
 const ul = document.createElement("ul");
 relatedArtistsDiv.appendChild(ul);
-artistNames.forEach(function(name) {
+artistNames.forEach(function(name, idx) {
   const li = document.createElement("li");
   li.textContent = name;
+  li.className = 'related-artist-name';
   ul.appendChild(li);
 });
+
+// Selects the first image whose height/width ratio is 1/1. Otherwise,
+// selects the image closest to 1.
+function selectImageThumbnail(images) {
+  let imageRatios = [];
+  for(let i = 0; i<images.length; i++ ) {
+    if (images[i].height === images[i].width) {
+      return images[i].url;
+    } else {
+      return images[0].url;
+    }
+  }
+}
+
+// "images": [
+//   {
+//     "height": 640,
+//     "url": "https://i.scdn.co/image/11c93f7924d468e3394960a6852faa3da86671f9",
+//     "width": 640
+//   },
+//   {
+//     "height": 320,
+//     "url": "https://i.scdn.co/image/f9f093536884c6534b194401bd1f731f67022a2e",
+//     "width": 320
+//   },
+//   {
+//     "height": 160,
+//     "url": "https://i.scdn.co/image/7c50a75981bb079b783cf7b7327cba4c0e8894eb",
+//     "width": 160
+//   }
+// ],
