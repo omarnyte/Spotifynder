@@ -3,13 +3,13 @@ const spotifyApi = new Spotify();
 
 let token;
 
-$.ajax({
-  url: '/token',
-  success: function(response) {
-    token = response;
-    spotifyApi.setAccessToken(token);
-  }
-});
+// $.ajax({
+//   url: '/token',
+//   success: function(response) {
+//     token = response;
+//     spotifyApi.setAccessToken(token);
+//   }
+// });
 
 // document.getElementById('search-button').addEventListener('click', (e) => {
 //   s.getAlbum('6zfkiTCfpCeQCokEMlpudS')
