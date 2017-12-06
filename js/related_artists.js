@@ -871,10 +871,23 @@ const testJSONResp = {
   ]
 };
 
+// parses through the JSON response and extracts only the artist names
+let artistNames = [];
+testJSONResp.artists.forEach(function(artist) {
+  // artistNames.push(artist.name)
+  artistNames.push(artist.name);
+});
 
-
-const relatedArtistsDiv = document.querySelector(".related-artists");
+const relatedArtistsDiv = document.querySelector(".related-artists-div");
 
 const h1 = document.createElement("h1");
-h1.textContent = 'Hi from related artists!';
+h1.textContent = "Related Artists!";
 relatedArtistsDiv.appendChild(h1);
+
+const ul = document.createElement("ul");
+relatedArtistsDiv.appendChild(ul);
+artistNames.forEach(function(name) {
+  const li = document.createElement("li");
+  li.textContent = name;
+  ul.appendChild(li);
+});
