@@ -6,7 +6,7 @@
 }
 
 .related-artists-div > h1 {
-  margin-top: 10px; 
+  margin-top: 10px;
 
   font-size: 20px;
   text-align: center;
@@ -21,6 +21,10 @@
 
   display: flex;
   align-items: center;
+}
+
+.related-artists-item-div:hover {
+  background-color: rgb(199, 199, 199); 
 }
 
 .related-artist-thumbnail {

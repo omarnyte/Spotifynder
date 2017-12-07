@@ -10,7 +10,7 @@ let token;
 //     spotifyApi.setAccessToken(token);
 //   }
 // });
-
+//
 // document.getElementById('search-button').addEventListener('click', (e) => {
 //   s.getAlbum('6zfkiTCfpCeQCokEMlpudS')
 //     .then(data => {
