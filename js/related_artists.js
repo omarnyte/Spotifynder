@@ -871,12 +871,6 @@ const testJSONResp = {
   ]
 };
 
-// parses through the JSON response and extracts only the artist names
-let artistNames = [];
-testJSONResp.artists.forEach(function(artist) {
-  // artistNames.push(artist.name)
-  artistNames.push(artist.name);
-});
 
 const relatedArtistsDiv = document.querySelector(".related-artists-div");
 
@@ -915,21 +909,3 @@ function selectImageThumbnail(images) {
     }
   }
 }
-
-// "images": [
-//   {
-//     "height": 640,
-//     "url": "https://i.scdn.co/image/11c93f7924d468e3394960a6852faa3da86671f9",
-//     "width": 640
-//   },
-//   {
-//     "height": 320,
-//     "url": "https://i.scdn.co/image/f9f093536884c6534b194401bd1f731f67022a2e",
-//     "width": 320
-//   },
-//   {
-//     "height": 160,
-//     "url": "https://i.scdn.co/image/7c50a75981bb079b783cf7b7327cba4c0e8894eb",
-//     "width": 160
-//   }
-// ],
