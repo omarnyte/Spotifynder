@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // s.searchArtists(searchQuery.value)
     //   .then(resp => console.log(resp));
 
-    s.getArtistRelatedArtists(artistID)
+    s.getArtistRelatedArtists('00FQb4jTyendYWaN8pK0wa') //TODO change back to name
       .then(resp => {
         console.log(resp);
         // new bubbleChart();
