@@ -2,7 +2,8 @@
 import Spotify from 'spotify-web-api-js';
 const s = new Spotify();
 
-import Search from './search';
+// import Search from './search';
+import relatedArtists from './related_artists';
 
 let token;
 
@@ -27,9 +28,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const artistID = searchQuery.value;
     searchQuery.value = "";
 
-      s.getArtist(artistID)
+      s.getArtistRelatedArtists(artistID)
         .then(resp => {
-          console.log(resp); 
+          console.log(resp);
+          new relatedArtists(resp);
           // let url = data.tracks.items[0].preview_url;
           // const container = document.getElementById('results');
           // let audio = document.createElement('audio');
@@ -39,16 +41,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
       });
 });
-
-
-// document.getElementById('search-button').addEventListener('click', (e) => {
-//   s.getAlbum('6zfkiTCfpCeQCokEMlpudS')
-//     .then(data => {
-//       let url = data.tracks.items[0].preview_url;
-//       const container = document.getElementById('results');
-//       let audio = document.createElement('audio');
-//       audio.setAttribute('src', url);
-//       audio.setAttribute('controls', 'controls');
-//       container.appendChild(audio);
-//     });
-// });
