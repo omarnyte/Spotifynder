@@ -1,2 +1,2 @@
 node_modules
-/lib/spotify-auth
+./js/bundle.js
