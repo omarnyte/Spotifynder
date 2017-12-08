@@ -4,6 +4,7 @@ const s = new Spotify();
 
 // import Search from './search';
 import relatedArtists from './related_artists';
+import bubbleChart from './bubble_chart'; 
 
 let token;
 
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       s.getArtistRelatedArtists(artistID)
         .then(resp => {
           console.log(resp);
+          new bubbleChart();
           new relatedArtists(resp);
           // let url = data.tracks.items[0].preview_url;
           // const container = document.getElementById('results');
