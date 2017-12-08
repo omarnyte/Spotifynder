@@ -15,8 +15,8 @@ let token;
 
 spotifyAuth((err, resp, body) => {
   token = body.access_token;
-  console.log('Listening on 8888');
-  app.listen(8888);
+  console.log('Listening on 8000');
+  app.listen(8000);
 });
 
 app.get('/', (req, res) => {
