@@ -65,21 +65,37 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const Spotify = __webpack_require__(1);
-const spotifyApi = new Spotify();
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(2);
+// API code provided by https://github.com/sperrow/js-project
+
+const s = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+
+
 
 let token;
 
-// $.ajax({
-//   url: '/token',
-//   success: function(response) {
-//     token = response;
-//     spotifyApi.setAccessToken(token);
-//   }
-// });
+$.ajax({
+  url: '/callback',
+  success: function(response) {
+    token = response;
+    s.setAccessToken(token);
+  }
+  // TODO on error, attempt to get new token 
+});
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  Object(__WEBPACK_IMPORTED_MODULE_1__search__["a" /* default */])();
+  console.log(token);
+});
 //
+
+
 // document.getElementById('search-button').addEventListener('click', (e) => {
 //   s.getAlbum('6zfkiTCfpCeQCokEMlpudS')
 //     .then(data => {
@@ -1832,6 +1848,23 @@ var SpotifyWebApi = (function() {
 if (typeof module === 'object' && typeof module.exports === 'object') {
   module.exports = SpotifyWebApi;
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (Search => {
+  const searchForm = document.querySelector(".search-form");
+
+  searchForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const searchQuery = document.querySelector(".search-bar");
+    searchQuery.value = "";
+  });
+});
 
 
 /***/ })
