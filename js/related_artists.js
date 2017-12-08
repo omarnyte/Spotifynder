@@ -909,7 +909,3 @@ function selectImageThumbnail(images) {
     }
   }
 }
-
-function toggleHighlightedArtist() {
-
-}

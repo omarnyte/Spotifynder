@@ -1,3 +1,9 @@
+.conent-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .charts {
   display: flex;
   justify-content: space-around;

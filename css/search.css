@@ -1,5 +1,10 @@
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
 .search-bar {
   width: 250px;
   border: 1px solid black;
-  border-radius: 2px; 
+  border-radius: 2px;
 }

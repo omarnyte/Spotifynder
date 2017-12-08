@@ -1,16 +1,16 @@
 const Spotify = require('spotify-web-api-js');
-const spotifyApi = new Spotify();
+const s = new Spotify();
 
 let token;
 
 // $.ajax({
-//   url: '/token',
+//   url: '/callback',
 //   success: function(response) {
 //     token = response;
 //     spotifyApi.setAccessToken(token);
 //   }
 // });
-//
+
 // document.getElementById('search-button').addEventListener('click', (e) => {
 //   s.getAlbum('6zfkiTCfpCeQCokEMlpudS')
 //     .then(data => {

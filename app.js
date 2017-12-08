@@ -1,7 +1,7 @@
 // API code provided by https://github.com/sperrow/js-project
 
 const spotifyAuth = require('./lib/spotify-auth');
-
+const path = require('path');
 const express = require('express'); // Express web server framework
 const request = require('request'); // "Request" library
 const cookieParser = require('cookie-parser');
@@ -19,6 +19,10 @@ spotifyAuth((err, resp, body) => {
   app.listen(8888);
 });
 
-app.get('/token', (req, res) => {
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './index.html'));
+});
+
+app.get('/callback', (req, res) => {
   res.send(token);
 });
