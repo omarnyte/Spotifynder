@@ -1,11 +1,11 @@
-import * as d3 from 'd3'; 
+// import * as d3 from 'd3';
 
-export default class bubbleChart {
-  constuctor(){
-    this.render();
-  }
-
-  render(){
+// export default class bubbleChart {
+//   constructor(){
+//     this.render();
+//   }
+//
+//   render() {
     var svg = d3.select("svg");
     var width = +svg.attr("width");
     var height = +svg.attr("height");
@@ -65,5 +65,5 @@ export default class bubbleChart {
       node.append("title")
       .text(function(d) { return d.id + "\n" + format(d.value); });
     });
-  }
-}
+//   }
+// }
