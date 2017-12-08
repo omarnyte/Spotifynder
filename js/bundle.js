@@ -72,6 +72,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search__);
 // API code provided by https://github.com/sperrow/js-project
 
 const s = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
@@ -84,16 +85,35 @@ $.ajax({
   url: '/callback',
   success: function(response) {
     token = response;
+    console.log(token);
     s.setAccessToken(token);
   }
-  // TODO on error, attempt to get new token 
+  // TODO on error, attempt to get new token
 });
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  Object(__WEBPACK_IMPORTED_MODULE_1__search__["a" /* default */])();
-  console.log(token);
+  const searchForm = document.querySelector(".search-form");
+
+  searchForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const searchQuery = document.querySelector(".search-bar");
+    console.log(searchQuery.value);
+    const artistID = searchQuery.value;
+    searchQuery.value = "";
+
+      s.getArtist(artistID)
+        .then(resp => {
+          console.log(resp); 
+          // let url = data.tracks.items[0].preview_url;
+          // const container = document.getElementById('results');
+          // let audio = document.createElement('audio');
+          // audio.setAttribute('src', url);
+          // audio.setAttribute('controls', 'controls');
+          // container.appendChild(audio);
+        });
+      });
 });
-//
 
 
 // document.getElementById('search-button').addEventListener('click', (e) => {
@@ -1852,19 +1872,18 @@ if (typeof module === 'object' && typeof module.exports === 'object') {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (Search => {
-  const searchForm = document.querySelector(".search-form");
-
-  searchForm.addEventListener("submit", e => {
-    e.preventDefault();
-
-    const searchQuery = document.querySelector(".search-bar");
-    searchQuery.value = "";
-  });
-});
+// export default Search => {
+//   const searchForm = document.querySelector(".search-form");
+//
+//   searchForm.addEventListener("submit", e => {
+//     e.preventDefault();
+//
+//     const searchQuery = document.querySelector(".search-bar");
+//     searchQuery.value = "";
+//   });
+// };
 
 
 /***/ })
