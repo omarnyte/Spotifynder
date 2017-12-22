@@ -60,59 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
-
-const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
-
-let token;
-
-$.ajax({
-  url: '/callback',
-  success: function(response) {
-    token = response;
-    console.log(token);
-    spotify.setAccessToken(token);
-  }
-  // TODO on error, attempt to get new token
-});
-
-const searchForm = document.querySelector(".search-form");
-
-searchForm.addEventListener("submit", e => {
-  e.preventDefault();
-
-  const welcome = document.querySelector(".welcome");
-  welcome.classList.add("hidden");
-
-  const charts = document.querySelector(".charts");
-  charts.classList.remove("hidden");
-
-  // spotify search query
-  const searchQuery = document.querySelector('.search-bar').value;
-  spotify.searchArtists(searchQuery)
-    .then(artistResp => {
-      const artistId = artistResp.artists.items[0].id;
-      spotify.getArtistRelatedArtists(artistId)
-        .then(relatedArtistResp => {
-          console.log(relatedArtistResp);
-        }); 
-    });
-
-});
-
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1850,6 +1802,145 @@ var SpotifyWebApi = (function() {
 if (typeof module === 'object' && typeof module.exports === 'object') {
   module.exports = SpotifyWebApi;
 }
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__related_artists__ = __webpack_require__(2);
+
+
+
+
+const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+
+let token;
+
+$.ajax({
+  url: '/callback',
+  success: function(response) {
+    token = response;
+    console.log('token', token);
+    spotify.setAccessToken(token);
+  }
+  // TODO on error, attempt to get new token
+});
+
+const searchForm = document.querySelector(".search-form");
+
+searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const welcome = document.querySelector(".welcome");
+  welcome.classList.add("hidden");
+
+  const charts = document.querySelector(".charts");
+  charts.classList.remove("hidden");
+
+  // spotify search query
+  const searchQuery = document.querySelector('.search-bar').value;
+  spotify.searchArtists(searchQuery)
+    .then(artistResp => {
+      console.log('artistResp', artistResp);
+      const artistId = artistResp.artists.items[0].id;
+      spotify.getArtistRelatedArtists(artistId)
+        .then(relatedArtistsResp => {
+          console.log('relatedArtistResp', relatedArtistsResp);
+          new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](relatedArtistsResp, spotify);
+        });
+    });
+});
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+
+
+const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+
+class relatedArtists {
+  constructor(relatedArtistsObject){
+    this.render(relatedArtistsObject);
+  }
+
+  render(relatedArtistsResp) {
+    this.populateAudioSources(relatedArtistsResp);
+
+    }
+
+    // parse related artists object, select their top songs, and create
+    // audio tags for each related artist's top song
+    populateAudioSources(relatedArtistsResp) {
+      const relatedArtistsChart = document.querySelector(".related-artists-chart");
+      //
+      const h1 = document.createElement("h1");
+      h1.textContent = "Related Artists";
+      relatedArtistsChart.appendChild(h1);
+
+      const ul = document.createElement("ul");
+      relatedArtistsChart.appendChild(ul);
+
+      let relatedArtistsIds = [];
+      relatedArtistsResp.artists.forEach(relatedArtist => {
+        relatedArtistsIds.push(relatedArtist.id);
+      });
+      console.log('relatedArtistsIds', relatedArtistsIds);
+      relatedArtistsIds.forEach(id => {
+        const previews = document.querySelector('.previews');
+        // console.log('previews', previews);
+        const audio = document.createElement('audio');
+        spotify.getArtistTopTracks(id, 'US')
+        .then(topTracksResp => {
+          // console.log('topTracksResp', topTracksResp);
+          const topTrackSource = topTracksResp.tracks[0].preview_url;
+          audio.classList.add(`data-${topTrackSource}`);
+          previews.appendChild(audio);
+        });
+      });
+
+    //
+    // relatedArtistsObject.artists.forEach(function(artist, idx) {
+    //   const div = document.createElement("div");
+    //   div.className = 'related-artists-item-div';
+    //   relatedArtistsDiv.appendChild(div);
+    //
+    //   const img = document.createElement("img");
+    //   img.className = 'related-artist-thumbnail';
+    //   img.src = selectImageThumbnail(artist.images);
+    //   div.appendChild(img);
+    //
+    //   const span = document.createElement("span");
+    //   span.textContent = artist.name;
+    //   span.className = 'related-artist-names';
+    //   div.appendChild(span);
+    // });
+    //
+    // // Selects the first image whose height/width ratio is 1/1. Otherwise,
+    // // selects the image closest to 1.
+    // function selectImageThumbnail(images) {
+    //   let imageRatios = [];
+    //   for(let i = 0; i<images.length; i++ ) {
+    //     if (images[i].height === images[i].width) {
+    //       return images[i].url;
+    //     } else {
+    //       return images[0].url;
+    //     }
+    //   }
+    // }
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = relatedArtists;
+
 
 
 /***/ })
