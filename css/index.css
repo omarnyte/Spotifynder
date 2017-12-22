@@ -1,4 +1,4 @@
-.conent-div {
+/*.conent-div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,5 +7,46 @@
 .charts {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+}*/
+
+html {
+  background-color: #1E293B;
+  font-family: Futura,"Helvetica","Arial",sans-serif;
+}
+
+.charts {
+  display: flex;
+  justify-content: space-around;
+}
+
+.prompt {
+  font-weight: lighter;
+  font-style: italic;
+  color: white;
+}
+
+.search-bar {
+  height: 25px;
+  width: 200px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  margin: 10px;
+  background-color: #757575;
+}
+
+.site-title {
+  font-size: 25px;
+  color: #00E364;
+  transition: 1s;
+}
+
+.site-title:hover {
+  color: white;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
