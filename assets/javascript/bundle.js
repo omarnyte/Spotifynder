@@ -1898,12 +1898,12 @@ class relatedArtists {
       relatedArtistsIds.forEach(id => {
         const previews = document.querySelector('.previews');
         // console.log('previews', previews);
-        const audio = document.createElement('audio');
+        let audio = document.createElement('audio');
         spotify.getArtistTopTracks(id, 'US')
         .then(topTracksResp => {
           // console.log('topTracksResp', topTracksResp);
-          const topTrackSource = topTracksResp.tracks[0].preview_url;
-          audio.classList.add(`data-${topTrackSource}`);
+          audio.setAttribute('data-artistId', id); 
+          audio.src = topTracksResp.tracks[0].preview_url;
           previews.appendChild(audio);
         });
       });
