@@ -1877,20 +1877,10 @@ class relatedArtists {
     this.populateChart(relatedArtistsResp);
     this.populateAudioSources(relatedArtistsResp);
 
-  function playPreview(e) {
-    console.log(e.srcElement.attributes[2]);
-
-    // const audio = document.querySelector(`previews[data-artistId="${e.keyCode}"]`);
-    const audio = document.querySelector(`audio[data-artistid="4uSftVc3FPWe6RJuMZNEe9"]`);
-    console.log('audio', audio);
-    if (!audio) return;
-    audio.currentTime = 0;
-    audio.play();
-  }
-
-  const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
-  console.log('so many thumbnails!');
-  thumbnails.forEach(thumbnail => thumbnail.addEventListener('mouseover', playPreview));
+    const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('mouseover', this.playPreview);
+    });
   }
 
   populateChart(relatedArtistsResp) {
@@ -1953,15 +1943,16 @@ class relatedArtists {
     });
   }
 
-
-  // playPreview(e) {
-  //   const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-  //   const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
-  //   if (!audio) return;
-  //   key.classList.add('playing');
-  //   audio.currentTime = 0;
-  //   audio.play();
-  // }
+  playPreview(e) {
+    // if additional attr
+    const artistId = e.target.dataset.artistid;
+    console.log(e.target.dataset.artistid);
+    const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
+    console.log('audio', audio);
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play();
+  }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = relatedArtists;
 
