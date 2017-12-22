@@ -30,13 +30,13 @@ searchForm.addEventListener("submit", e => {
   // spotify search query
   const searchQuery = document.querySelector('.search-bar').value;
   spotify.searchArtists(searchQuery)
-    .then(artistResp => {
-      console.log('artistResp', artistResp);
-      const artistId = artistResp.artists.items[0].id;
+    .then(artistsResp => {
+      console.log('artistsResp', artistsResp);
+      const artistId = artistsResp.artists.items[0].id;
       spotify.getArtistRelatedArtists(artistId)
         .then(relatedArtistsResp => {
-          console.log('relatedArtistResp', relatedArtistsResp);
-          new RelatedArtistsChart(relatedArtistsResp, spotify);
+          const topArtistResult = artistsResp.artists.items[0];
+          new RelatedArtistsChart(topArtistResult, relatedArtistsResp);
         });
     });
 });

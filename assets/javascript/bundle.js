@@ -1845,13 +1845,13 @@ searchForm.addEventListener("submit", e => {
   // spotify search query
   const searchQuery = document.querySelector('.search-bar').value;
   spotify.searchArtists(searchQuery)
-    .then(artistResp => {
-      console.log('artistResp', artistResp);
-      const artistId = artistResp.artists.items[0].id;
+    .then(artistsResp => {
+      console.log('artistsResp', artistsResp);
+      const artistId = artistsResp.artists.items[0].id;
       spotify.getArtistRelatedArtists(artistId)
         .then(relatedArtistsResp => {
-          console.log('relatedArtistResp', relatedArtistsResp);
-          new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](relatedArtistsResp, spotify);
+          const topArtistResult = artistsResp.artists.items[0];
+          new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](topArtistResult, relatedArtistsResp);
         });
     });
 });
@@ -1869,14 +1869,15 @@ searchForm.addEventListener("submit", e => {
 const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
 
 class relatedArtists {
-  constructor(relatedArtistsResp){
-    this.render(relatedArtistsResp);
+  constructor(topArtistResult, relatedArtistsResp){
+    this.render(topArtistResult, relatedArtistsResp);
   }
 
-  render(relatedArtistsResp) {
-    this.populateChart(relatedArtistsResp);
+  render(topArtistResult, relatedArtistsResp) {
+    this.populateChart(topArtistResult, relatedArtistsResp);
     this.populateAudioSources(relatedArtistsResp);
 
+    // enables 30-second preview when hovering over thumbnail
     const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
     thumbnails.forEach(thumbnail => {
       thumbnail.addEventListener('mouseover', this.togglePreview);
@@ -1884,13 +1885,13 @@ class relatedArtists {
     });
   }
 
-  populateChart(relatedArtistsResp) {
+  populateChart(topArtistResult, relatedArtistsResp) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
-    h1.textContent = "Related Artists";
+    h1.textContent = `Related to ${topArtistResult.name}`;
     relatedArtistsChart.appendChild(h1);
-
+    console.log('populateChart artists', relatedArtistsResp);
     relatedArtistsResp.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
@@ -1948,7 +1949,6 @@ class relatedArtists {
     const artistId = e.target.dataset.artistid;
     console.log(e.target.dataset.artistid);
     const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
-    console.log('audio', audio);
     if (!audio) return;
     audio.currentTime = 0;
     if(!!audio.paused) {

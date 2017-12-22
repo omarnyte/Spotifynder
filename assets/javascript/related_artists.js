@@ -3,14 +3,15 @@ import Spotify from 'spotify-web-api-js';
 const spotify = new Spotify();
 
 export default class relatedArtists {
-  constructor(relatedArtistsResp){
-    this.render(relatedArtistsResp);
+  constructor(topArtistResult, relatedArtistsResp){
+    this.render(topArtistResult, relatedArtistsResp);
   }
 
-  render(relatedArtistsResp) {
-    this.populateChart(relatedArtistsResp);
+  render(topArtistResult, relatedArtistsResp) {
+    this.populateChart(topArtistResult, relatedArtistsResp);
     this.populateAudioSources(relatedArtistsResp);
 
+    // enables 30-second preview when hovering over thumbnail
     const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
     thumbnails.forEach(thumbnail => {
       thumbnail.addEventListener('mouseover', this.togglePreview);
@@ -18,13 +19,13 @@ export default class relatedArtists {
     });
   }
 
-  populateChart(relatedArtistsResp) {
+  populateChart(topArtistResult, relatedArtistsResp) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
-    h1.textContent = "Related Artists";
+    h1.textContent = `Related to ${topArtistResult.name}`;
     relatedArtistsChart.appendChild(h1);
-
+    console.log('populateChart artists', relatedArtistsResp);
     relatedArtistsResp.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
@@ -82,7 +83,6 @@ export default class relatedArtists {
     const artistId = e.target.dataset.artistid;
     console.log(e.target.dataset.artistid);
     const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
-    console.log('audio', audio);
     if (!audio) return;
     audio.currentTime = 0;
     if(!!audio.paused) {
