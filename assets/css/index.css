@@ -20,6 +20,10 @@ html {
   justify-content: space-around;
 }
 
+.charts.hidden {
+  visibility: hidden;
+}
+
 .prompt {
   font-weight: lighter;
   font-style: italic;
@@ -49,4 +53,8 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.welcome.hidden {
+  visibility: hidden;
 }
