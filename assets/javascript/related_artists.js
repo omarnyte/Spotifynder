@@ -13,7 +13,8 @@ export default class relatedArtists {
 
     const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
     thumbnails.forEach(thumbnail => {
-      thumbnail.addEventListener('mouseover', this.playPreview);
+      thumbnail.addEventListener('mouseover', this.togglePreview);
+      thumbnail.addEventListener('mouseout', this.togglePreview);
     });
   }
 
@@ -77,14 +78,17 @@ export default class relatedArtists {
     });
   }
 
-  playPreview(e) {
-    // if additional attr
+  togglePreview(e) {
     const artistId = e.target.dataset.artistid;
     console.log(e.target.dataset.artistid);
     const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
     console.log('audio', audio);
     if (!audio) return;
     audio.currentTime = 0;
-    audio.play();
+    if(!!audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
   }
 }
