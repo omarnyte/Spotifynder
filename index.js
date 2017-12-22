@@ -1,5 +1,5 @@
 const express = require('express');
-const request = require('request'); 
+const request = require('request');
 const cookieParser = require('cookie-parser');
 
 const spotifyAuth = require('./lib/spotify-auth');
