@@ -1886,37 +1886,33 @@ class relatedArtists {
     h1.textContent = "Related Artists";
     relatedArtistsChart.appendChild(h1);
 
-    const ul = document.createElement("ul");
-    relatedArtistsChart.appendChild(ul);
-
-    relatedArtistsResp.artists.forEach(function(artist, idx) {
+    relatedArtistsResp.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
       relatedArtistsChart.appendChild(div);
 
-      // const img = document.createElement("img");
-      // img.className = 'related-artist-thumbnail';
-      // img.src = selectImageThumbnail(artist.images);
-      // div.appendChild(img);
+      const img = document.createElement("img");
+      img.className = 'related-artist-thumbnail';
+      img.src = this.selectImageThumbnail(artist.images);
+      div.appendChild(img);
 
       const span = document.createElement("span");
       span.textContent = artist.name;
       span.className = 'related-artist-names';
       div.appendChild(span);
     });
-    //
-    // // Selects the first image whose height/width ratio is 1/1. Otherwise,
-    // // selects the image closest to 1.
-    // function selectImageThumbnail(images) {
-    //   let imageRatios = [];
-    //   for(let i = 0; i<images.length; i++ ) {
-    //     if (images[i].height === images[i].width) {
-    //       return images[i].url;
-    //     } else {
-    //       return images[0].url;
-    //     }
-      // }
-    // }
+  }
+
+  // Selects the first image whose height/width ratio is 1/1.
+  selectImageThumbnail(images) {
+    let imageRatios = [];
+    for(let i = 0; i<images.length; i++ ) {
+      if (images[i].height === images[i].width) {
+        return images[i].url;
+      } else {
+        return images[0].url;
+      }
+    }
   }
 
   // parse related artists object by iterating over each related
