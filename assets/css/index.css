@@ -30,9 +30,22 @@ html {
   color: white;
 }
 
+.related-artists-chart {
+  width: 500px;
+  border: 1px solid black;
+}
+
+.related-artists-chart > div {
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+}
+
 .related-artist-thumbnail {
   width: 50px;
   height: 50px;
+  border-radius: 50px;
 
   cursor: pointer;
 }
