@@ -9,41 +9,52 @@ searchForm.addEventListener("submit", e => {
 });
 
 const searchBar = document.querySelector('.search-bar');
+searchBar.addEventListener('keyup', fetchMatches);
+
+const suggestions = document.querySelector('.suggestions');
 
 function fetchMatches(e) {
   const searchQuery = searchBar.value;
 
-  // prevent sending an empty query
-  if (searchQuery.length === 0) return; 
+  // prevent sending an empty query after deleting
+  if (searchQuery.length === 0) return;
 
   spotify.searchArtists(searchQuery, {limit: 5})
     .then(queryResults => displayMatches(queryResults));
 }
 
 function displayMatches(queryResults) {
-  let artistNames = [];
-  queryResults.artists.items.forEach(artist => {
-    artistNames.push(artist.name);
-  });
-  console.log(artistNames);
+  const artistResults = queryResults.artists.items;
+  console.log(artistResults);
+
+  const html = artistResults.map(artistObject => {
+    const name = artistObject.name;
+    const id = artistObject.id;
+    console.log(name, id);
+    return `
+      <li class='query-item' data-artistId=${id}>
+        <span class="query-item-name">${name}</span>
+      </li>
+  `;
+}).join('');
+suggestions.innerHTML = html;
 }
 
-searchBar.addEventListener('keyup', fetchMatches);
-// const welcome = document.querySelector(".welcome");
-// welcome.classList.add("hidden");
+// function displayMatches() {
+//   const matchArray = findMatches(this.value, cities);
+//   const html = matchArray.map(place => {
+//     const regex = new RegExp(this.value, 'gi');
+//     const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+//     const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+//     return `
+//       <li>
+//         <span class="name">${cityName}, ${stateName}</span>
+//         <span class="population">${numberWithCommas(place.population)}</span>
+//       </li>
+//     `;
+//   }).join('');
+//   suggestions.innerHTML = html;
+// }
 //
-// const charts = document.querySelector(".charts");
-// charts.classList.remove("hidden");
-
-  // spotify.searchArtists(searchQuery)
-  //   .then(artistsResp => {
-  //     console.log(artistsResp);
-  //     const artistId = artistsResp.artists.items[0].id;
-  //     spotify.getArtistRelatedArtists(artistId)
-  //       .then(relatedArtistsResp => {
-  //         new BubbleChart(relatedArtistsResp);
-  //
-  //         const topArtistResult = artistsResp.artists.items[0];
-  //         new RelatedArtistsChart(topArtistResult, relatedArtistsResp);
-  //       });
-  //   });
+// const searchInput = document.querySelector('.search');
+// const suggestions = document.querySelector('.suggestions');
