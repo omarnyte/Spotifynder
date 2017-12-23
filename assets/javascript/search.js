@@ -1,3 +1,6 @@
+import BubbleChart from './bubble_chart';
+import RelatedArtistsChart from './related_artists';
+
 import Spotify from 'spotify-web-api-js';
 
 const spotify = new Spotify();
@@ -30,8 +33,8 @@ function displayMatches(queryResults) {
     const name = artistObject.name;
     const id = artistObject.id;
     return `
-      <li class='search-result-item' data-artistId=${id}>
-        <span class="search-result-item-name">${name}</span>
+      <li class='search-result-item'>
+        <span class="search-result-item-name" data-artistId=${id}>${name}</span>
       </li>
   `;
   }).join('');
@@ -41,15 +44,29 @@ function displayMatches(queryResults) {
 }
 
 function appendEventListeners() {
-  const searchResultItems = document.querySelectorAll('.search-result-item');
-  console.log(searchResultItems);
-  searchResultItems.forEach(item => {
-    item.addEventListener('click', createCharts);
+  const artistNameSpans = document.querySelectorAll('.search-result-item-name');
+  // console.log(searchResultItems);
+  artistNameSpans.forEach(name => {
+    name.addEventListener('click', createCharts);
   });
 }
 
 function createCharts(e) {
-  console.log('clicked!');
+  const welcome = document.querySelector(".welcome");
+  welcome.classList.add("hidden");
+
+  const charts = document.querySelector(".charts");
+  charts.classList.remove("hidden");
+
+  const artistName = e.target.textContent;
+  console.log(e);
+  const artistId = e.target.dataset.artistid;
+
+  spotify.getArtistRelatedArtists(artistId)
+    .then(relatedArtistsResp => {
+      new BubbleChart(relatedArtistsResp);
+      new RelatedArtistsChart(artistName, relatedArtistsResp);
+    });
 }
 
 

@@ -2,7 +2,8 @@ import * as d3 from 'd3';
 
 export default class BubbleChart {
   constructor(relatedArtistsResp){
-    this.render(relatedArtistsResp);
+    console.log('in the bubble chart');
+    // this.render(relatedArtistsResp);
   }
 
   render(relatedArtistsResp) {

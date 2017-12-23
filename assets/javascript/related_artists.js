@@ -3,12 +3,13 @@ import Spotify from 'spotify-web-api-js';
 const spotify = new Spotify();
 
 export default class relatedArtists {
-  constructor(topArtistResult, relatedArtistsResp){
-    this.render(topArtistResult, relatedArtistsResp);
+  constructor(artistName, relatedArtistsResp){
+    // console.log('artistName', artistName);
+    this.render(artistName, relatedArtistsResp);
   }
 
-  render(topArtistResult, relatedArtistsResp) {
-    this.populateChart(topArtistResult, relatedArtistsResp);
+  render(artistName, relatedArtistsResp) {
+    this.populateChart(artistName, relatedArtistsResp);
     this.populateAudioSources(relatedArtistsResp);
 
     // enables 30-second preview when hovering over thumbnail
@@ -19,11 +20,11 @@ export default class relatedArtists {
     });
   }
 
-  populateChart(topArtistResult, relatedArtistsResp) {
+  populateChart(artistName, relatedArtistsResp) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
-    h1.textContent = `Related to ${topArtistResult.name}`;
+    h1.textContent = `Related to ${artistName}`;
     relatedArtistsChart.appendChild(h1);
     relatedArtistsResp.artists.forEach((artist, idx) => {
       const div = document.createElement("div");

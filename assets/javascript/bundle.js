@@ -11178,6 +11178,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(466);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__related_artists__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__related_artists___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__related_artists__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bubble_chart__ = __webpack_require__(174);
 
 
@@ -11239,12 +11240,13 @@ $.ajax({
 const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
 
 class relatedArtists {
-  constructor(topArtistResult, relatedArtistsResp){
-    this.render(topArtistResult, relatedArtistsResp);
+  constructor(artistName, relatedArtistsResp){
+    // console.log('artistName', artistName);
+    this.render(artistName, relatedArtistsResp);
   }
 
-  render(topArtistResult, relatedArtistsResp) {
-    this.populateChart(topArtistResult, relatedArtistsResp);
+  render(artistName, relatedArtistsResp) {
+    this.populateChart(artistName, relatedArtistsResp);
     this.populateAudioSources(relatedArtistsResp);
 
     // enables 30-second preview when hovering over thumbnail
@@ -11255,11 +11257,11 @@ class relatedArtists {
     });
   }
 
-  populateChart(topArtistResult, relatedArtistsResp) {
+  populateChart(artistName, relatedArtistsResp) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
-    h1.textContent = `Related to ${topArtistResult.name}`;
+    h1.textContent = `Related to ${artistName}`;
     relatedArtistsChart.appendChild(h1);
     relatedArtistsResp.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
@@ -11325,7 +11327,7 @@ class relatedArtists {
     }
   }
 }
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = relatedArtists;
 
 
 
@@ -11339,7 +11341,8 @@ class relatedArtists {
 
 class BubbleChart {
   constructor(relatedArtistsResp){
-    this.render(relatedArtistsResp);
+    console.log('in the bubble chart');
+    // this.render(relatedArtistsResp);
   }
 
   render(relatedArtistsResp) {
@@ -11406,7 +11409,7 @@ class BubbleChart {
     });
   }
 }
-/* unused harmony export default */
+/* harmony export (immutable) */ __webpack_exports__["a"] = BubbleChart;
 
 
 
@@ -24592,11 +24595,16 @@ function nopropagation() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bubble_chart__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__related_artists__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__);
 
 
-const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+
+
+
+const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a();
 
 // prevent submission of form
 const searchForm = document.querySelector(".search-form");
@@ -24626,8 +24634,8 @@ function displayMatches(queryResults) {
     const name = artistObject.name;
     const id = artistObject.id;
     return `
-      <li class='search-result-item' data-artistId=${id}>
-        <span class="search-result-item-name">${name}</span>
+      <li class='search-result-item'>
+        <span class="search-result-item-name" data-artistId=${id}>${name}</span>
       </li>
   `;
   }).join('');
@@ -24637,15 +24645,29 @@ function displayMatches(queryResults) {
 }
 
 function appendEventListeners() {
-  const searchResultItems = document.querySelectorAll('.search-result-item');
-  console.log(searchResultItems);
-  searchResultItems.forEach(item => {
-    item.addEventListener('click', createCharts);
+  const artistNameSpans = document.querySelectorAll('.search-result-item-name');
+  // console.log(searchResultItems);
+  artistNameSpans.forEach(name => {
+    name.addEventListener('click', createCharts);
   });
 }
 
 function createCharts(e) {
-  console.log('clicked!');
+  const welcome = document.querySelector(".welcome");
+  welcome.classList.add("hidden");
+
+  const charts = document.querySelector(".charts");
+  charts.classList.remove("hidden");
+
+  const artistName = e.target.textContent;
+  console.log(e);
+  const artistId = e.target.dataset.artistid;
+
+  spotify.getArtistRelatedArtists(artistId)
+    .then(relatedArtistsResp => {
+      new __WEBPACK_IMPORTED_MODULE_0__bubble_chart__["a" /* default */](relatedArtistsResp);
+      new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](artistName, relatedArtistsResp);
+    });
 }
 
 
