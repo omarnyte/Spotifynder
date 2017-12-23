@@ -1,15 +1,3 @@
-/*.conent-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.charts {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}*/
-
 html {
   background-color: #1E293B;
   font-family: Futura,"Helvetica","Arial",sans-serif;
@@ -22,6 +10,16 @@ html {
 
 .charts.hidden {
   visibility: hidden;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.personal-link-item {
+  font-weight: bold;
+  color: #ff6b5b;
 }
 
 .prompt {

@@ -1,6 +1,7 @@
 import Spotify from 'spotify-web-api-js';
 
 import RelatedArtistsChart from './related_artists';
+import BubbleChart from './bubble_chart';
 
 const spotify = new Spotify();
 
@@ -31,10 +32,11 @@ searchForm.addEventListener("submit", e => {
   const searchQuery = document.querySelector('.search-bar').value;
   spotify.searchArtists(searchQuery)
     .then(artistsResp => {
-      console.log('artistsResp', artistsResp);
       const artistId = artistsResp.artists.items[0].id;
       spotify.getArtistRelatedArtists(artistId)
         .then(relatedArtistsResp => {
+          new BubbleChart(relatedArtistsResp);
+
           const topArtistResult = artistsResp.artists.items[0];
           new RelatedArtistsChart(topArtistResult, relatedArtistsResp);
         });
