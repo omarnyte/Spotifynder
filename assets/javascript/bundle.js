@@ -24606,14 +24606,25 @@ searchForm.addEventListener("submit", e => {
 
 const searchBar = document.querySelector('.search-bar');
 
-function displayMatches(e) {
+function fetchMatches(e) {
   const searchQuery = searchBar.value;
-    spotify.searchArtists(searchQuery)
-      .then(resp => console.log(resp)); 
+
+  // prevent sending an empty query
+  if (searchQuery.length === 0) return; 
+
+  spotify.searchArtists(searchQuery, {limit: 5})
+    .then(queryResults => displayMatches(queryResults));
 }
 
+function displayMatches(queryResults) {
+  let artistNames = [];
+  queryResults.artists.items.forEach(artist => {
+    artistNames.push(artist.name);
+  });
+  console.log(artistNames);
+}
 
-searchBar.addEventListener('keyup', displayMatches);
+searchBar.addEventListener('keyup', fetchMatches);
 // const welcome = document.querySelector(".welcome");
 // welcome.classList.add("hidden");
 //
