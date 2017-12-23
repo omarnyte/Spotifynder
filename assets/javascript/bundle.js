@@ -11176,8 +11176,10 @@ function transform(node) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__related_artists__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bubble_chart__ = __webpack_require__(174);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(466);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__related_artists__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bubble_chart__ = __webpack_require__(174);
+
 
 
 
@@ -11197,31 +11199,32 @@ $.ajax({
   // TODO on error, attempt to get new token
 });
 
-const searchForm = document.querySelector(".search-form");
-
-searchForm.addEventListener("submit", e => {
-  e.preventDefault();
-
-  const welcome = document.querySelector(".welcome");
-  welcome.classList.add("hidden");
-
-  const charts = document.querySelector(".charts");
-  charts.classList.remove("hidden");
-
-  // spotify search query
-  const searchQuery = document.querySelector('.search-bar').value;
-  spotify.searchArtists(searchQuery)
-    .then(artistsResp => {
-      const artistId = artistsResp.artists.items[0].id;
-      spotify.getArtistRelatedArtists(artistId)
-        .then(relatedArtistsResp => {
-          new __WEBPACK_IMPORTED_MODULE_2__bubble_chart__["a" /* default */](relatedArtistsResp);
-
-          const topArtistResult = artistsResp.artists.items[0];
-          new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](topArtistResult, relatedArtistsResp);
-        });
-    });
-});
+// const searchForm = document.querySelector(".search-form");
+//
+// searchForm.addEventListener("submit", e => {
+//   e.preventDefault();
+//
+//   const welcome = document.querySelector(".welcome");
+//   welcome.classList.add("hidden");
+//
+//   const charts = document.querySelector(".charts");
+//   charts.classList.remove("hidden");
+//
+//   // spotify search query
+//   const searchQuery = document.querySelector('.search-bar').value;
+//   spotify.searchArtists(searchQuery)
+//     .then(artistsResp => {
+//       console.log(artistsResp);
+//       const artistId = artistsResp.artists.items[0].id;
+//       spotify.getArtistRelatedArtists(artistId)
+//         .then(relatedArtistsResp => {
+//           new BubbleChart(relatedArtistsResp);
+//
+//           const topArtistResult = artistsResp.artists.items[0];
+//           new RelatedArtistsChart(topArtistResult, relatedArtistsResp);
+//         });
+//     });
+// });
 
 
 /***/ }),
@@ -11322,7 +11325,7 @@ class relatedArtists {
     }
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = relatedArtists;
+/* unused harmony export default */
 
 
 
@@ -11403,7 +11406,7 @@ class BubbleChart {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = BubbleChart;
+/* unused harmony export default */
 
 
 
@@ -24582,6 +24585,53 @@ function nopropagation() {
   __WEBPACK_IMPORTED_MODULE_0_d3_selection__["b" /* event */].preventDefault();
   __WEBPACK_IMPORTED_MODULE_0_d3_selection__["b" /* event */].stopImmediatePropagation();
 });
+
+
+/***/ }),
+/* 466 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+
+
+const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+
+// prevent submission of form
+const searchForm = document.querySelector(".search-form");
+searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+});
+
+const searchBar = document.querySelector('.search-bar');
+
+function displayMatches(e) {
+  const searchQuery = searchBar.value;
+    spotify.searchArtists(searchQuery)
+      .then(resp => console.log(resp)); 
+}
+
+
+searchBar.addEventListener('keyup', displayMatches);
+// const welcome = document.querySelector(".welcome");
+// welcome.classList.add("hidden");
+//
+// const charts = document.querySelector(".charts");
+// charts.classList.remove("hidden");
+
+  // spotify.searchArtists(searchQuery)
+  //   .then(artistsResp => {
+  //     console.log(artistsResp);
+  //     const artistId = artistsResp.artists.items[0].id;
+  //     spotify.getArtistRelatedArtists(artistId)
+  //       .then(relatedArtistsResp => {
+  //         new BubbleChart(relatedArtistsResp);
+  //
+  //         const topArtistResult = artistsResp.artists.items[0];
+  //         new RelatedArtistsChart(topArtistResult, relatedArtistsResp);
+  //       });
+  //   });
 
 
 /***/ })
