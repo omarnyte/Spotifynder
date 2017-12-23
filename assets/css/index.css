@@ -31,8 +31,10 @@ html {
 }
 
 .related-artists-chart {
-  width: 500px;
+  width: 250px;
+  padding: 15px;
   border: 1px solid black;
+  border-radius: 5px;
 }
 
 .related-artists-chart > div {
@@ -42,13 +44,30 @@ html {
   align-items: center;
 }
 
+.related-artist-names {
+  padding-left: 10px;
+}
+
+/*spinning animation found at http://jsfiddle.net/gionaf/Ugc5g/*/
 .related-artist-thumbnail {
   width: 50px;
   height: 50px;
   border-radius: 50px;
 
+  transition: 1s;
+
   cursor: pointer;
 }
+
+.related-artist-thumbnail:hover {
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 .search-bar {
   height: 25px;

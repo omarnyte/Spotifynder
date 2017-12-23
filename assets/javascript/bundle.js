@@ -1891,7 +1891,6 @@ class relatedArtists {
     const h1 = document.createElement("h1");
     h1.textContent = `Related to ${topArtistResult.name}`;
     relatedArtistsChart.appendChild(h1);
-    console.log('populateChart artists', relatedArtistsResp);
     relatedArtistsResp.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
@@ -1930,7 +1929,6 @@ class relatedArtists {
     relatedArtistsResp.artists.forEach(relatedArtist => {
       relatedArtistsIds.push(relatedArtist.id);
     });
-    console.log('relatedArtistsIds', relatedArtistsIds);
     relatedArtistsIds.forEach(id => {
       const previews = document.querySelector('.previews');
       // console.log('previews', previews);
@@ -1947,7 +1945,6 @@ class relatedArtists {
 
   togglePreview(e) {
     const artistId = e.target.dataset.artistid;
-    console.log(e.target.dataset.artistid);
     const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
     if (!audio) return;
     audio.currentTime = 0;
