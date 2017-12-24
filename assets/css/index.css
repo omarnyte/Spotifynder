@@ -1,6 +1,6 @@
 html {
   background-color: #1E293B;
-  font-family: Futura,"Helvetica","Arial",sans-serif;
+  font-family: "Helvetica","Arial",sans-serif;
 }
 
 .charts {
@@ -46,7 +46,6 @@ html {
   padding-left: 10px;
 }
 
-/*spinning animation found at http://jsfiddle.net/gionaf/Ugc5g/*/
 .related-artist-thumbnail {
   width: 50px;
   height: 50px;
@@ -57,6 +56,7 @@ html {
   cursor: pointer;
 }
 
+/*spinning animation found at http://jsfiddle.net/gionaf/Ugc5g/*/
 .related-artist-thumbnail:hover {
   -webkit-animation:spin 4s linear infinite;
   -moz-animation:spin 4s linear infinite;
@@ -72,9 +72,10 @@ html {
   width: 200px;
   padding: 5px 10px 5px 10px;
   border-radius: 3px;
-  margin: 10px;
+  margin-top: 10px;
   background-color: #757575;
 }
+
 
 .site-title {
   font-size: 25px;
@@ -84,6 +85,22 @@ html {
 
 .site-title:hover {
   color: white;
+}
+
+.suggestions {
+  border: 1px solid red;
+
+  width: 220px;
+}
+
+.suggestions-item {
+  margin: 5px;
+
+  color: #00E364;
+}
+
+.suggestions-item-name {
+  cursor: pointer;
 }
 
 .welcome {

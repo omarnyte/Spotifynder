@@ -11178,7 +11178,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(466);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__related_artists__ = __webpack_require__(173);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__related_artists___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__related_artists__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bubble_chart__ = __webpack_require__(174);
 
 
@@ -11200,33 +11199,6 @@ $.ajax({
   // TODO on error, attempt to get new token
 });
 
-// const searchForm = document.querySelector(".search-form");
-//
-// searchForm.addEventListener("submit", e => {
-//   e.preventDefault();
-//
-//   const welcome = document.querySelector(".welcome");
-//   welcome.classList.add("hidden");
-//
-//   const charts = document.querySelector(".charts");
-//   charts.classList.remove("hidden");
-//
-//   // spotify search query
-//   const searchQuery = document.querySelector('.search-bar').value;
-//   spotify.searchArtists(searchQuery)
-//     .then(artistsResp => {
-//       console.log(artistsResp);
-//       const artistId = artistsResp.artists.items[0].id;
-//       spotify.getArtistRelatedArtists(artistId)
-//         .then(relatedArtistsResp => {
-//           new BubbleChart(relatedArtistsResp);
-//
-//           const topArtistResult = artistsResp.artists.items[0];
-//           new RelatedArtistsChart(topArtistResult, relatedArtistsResp);
-//         });
-//     });
-// });
-
 
 /***/ }),
 /* 173 */
@@ -11240,14 +11212,14 @@ $.ajax({
 const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
 
 class relatedArtists {
-  constructor(artistName, relatedArtistsResp){
+  constructor(artistName, relatedArtistObject){
     // console.log('artistName', artistName);
-    this.render(artistName, relatedArtistsResp);
+    this.render(artistName, relatedArtistObject);
   }
 
-  render(artistName, relatedArtistsResp) {
-    this.populateChart(artistName, relatedArtistsResp);
-    this.populateAudioSources(relatedArtistsResp);
+  render(artistName, relatedArtistObject) {
+    this.populateChart(artistName, relatedArtistObject);
+    this.populateAudioSources(relatedArtistObject);
 
     // enables 30-second preview when hovering over thumbnail
     const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
@@ -11257,13 +11229,13 @@ class relatedArtists {
     });
   }
 
-  populateChart(artistName, relatedArtistsResp) {
+  populateChart(artistName, relatedArtistObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
     h1.textContent = `Related to ${artistName}`;
     relatedArtistsChart.appendChild(h1);
-    relatedArtistsResp.artists.forEach((artist, idx) => {
+    relatedArtistObject.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
       relatedArtistsChart.appendChild(div);
@@ -11296,9 +11268,9 @@ class relatedArtists {
   // parse related artists object by iterating over each related
   // artist, fetching their top tracks, and appending audio tags for
   // each related artist's top song
-  populateAudioSources(relatedArtistsResp) {
+  populateAudioSources(relatedArtistObject) {
     let relatedArtistsIds = [];
-    relatedArtistsResp.artists.forEach(relatedArtist => {
+    relatedArtistObject.artists.forEach(relatedArtist => {
       relatedArtistsIds.push(relatedArtist.id);
     });
     relatedArtistsIds.forEach(id => {
@@ -24634,8 +24606,8 @@ function displayMatches(queryResults) {
     const name = artistObject.name;
     const id = artistObject.id;
     return `
-      <li class='search-result-item'>
-        <span class="search-result-item-name" data-artistId=${id}>${name}</span>
+      <li class='suggestions-item'>
+        <span class="suggestions-item-name" data-artistId=${id}>${name}</span>
       </li>
   `;
   }).join('');
@@ -24645,7 +24617,7 @@ function displayMatches(queryResults) {
 }
 
 function appendEventListeners() {
-  const artistNameSpans = document.querySelectorAll('.search-result-item-name');
+  const artistNameSpans = document.querySelectorAll('.suggestions-item-name');
   // console.log(searchResultItems);
   artistNameSpans.forEach(name => {
     name.addEventListener('click', createCharts);
@@ -24669,11 +24641,6 @@ function createCharts(e) {
       new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](artistName, relatedArtistsResp);
     });
 }
-
-
-// const keys = Array.from(document.querySelectorAll('.key'));
-// keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-// window.addEventListener('keydown', playSound);
 
 
 /***/ })

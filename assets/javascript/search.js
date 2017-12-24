@@ -33,8 +33,8 @@ function displayMatches(queryResults) {
     const name = artistObject.name;
     const id = artistObject.id;
     return `
-      <li class='search-result-item'>
-        <span class="search-result-item-name" data-artistId=${id}>${name}</span>
+      <li class='suggestions-item'>
+        <span class="suggestions-item-name" data-artistId=${id}>${name}</span>
       </li>
   `;
   }).join('');
@@ -44,7 +44,7 @@ function displayMatches(queryResults) {
 }
 
 function appendEventListeners() {
-  const artistNameSpans = document.querySelectorAll('.search-result-item-name');
+  const artistNameSpans = document.querySelectorAll('.suggestions-item-name');
   // console.log(searchResultItems);
   artistNameSpans.forEach(name => {
     name.addEventListener('click', createCharts);
@@ -68,8 +68,3 @@ function createCharts(e) {
       new RelatedArtistsChart(artistName, relatedArtistsResp);
     });
 }
-
-
-// const keys = Array.from(document.querySelectorAll('.key'));
-// keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-// window.addEventListener('keydown', playSound);

@@ -3,14 +3,14 @@ import Spotify from 'spotify-web-api-js';
 const spotify = new Spotify();
 
 export default class relatedArtists {
-  constructor(artistName, relatedArtistsResp){
+  constructor(artistName, relatedArtistObject){
     // console.log('artistName', artistName);
-    this.render(artistName, relatedArtistsResp);
+    this.render(artistName, relatedArtistObject);
   }
 
-  render(artistName, relatedArtistsResp) {
-    this.populateChart(artistName, relatedArtistsResp);
-    this.populateAudioSources(relatedArtistsResp);
+  render(artistName, relatedArtistObject) {
+    this.populateChart(artistName, relatedArtistObject);
+    this.populateAudioSources(relatedArtistObject);
 
     // enables 30-second preview when hovering over thumbnail
     const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
@@ -20,13 +20,13 @@ export default class relatedArtists {
     });
   }
 
-  populateChart(artistName, relatedArtistsResp) {
+  populateChart(artistName, relatedArtistObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
     h1.textContent = `Related to ${artistName}`;
     relatedArtistsChart.appendChild(h1);
-    relatedArtistsResp.artists.forEach((artist, idx) => {
+    relatedArtistObject.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
       relatedArtistsChart.appendChild(div);
@@ -59,9 +59,9 @@ export default class relatedArtists {
   // parse related artists object by iterating over each related
   // artist, fetching their top tracks, and appending audio tags for
   // each related artist's top song
-  populateAudioSources(relatedArtistsResp) {
+  populateAudioSources(relatedArtistObject) {
     let relatedArtistsIds = [];
-    relatedArtistsResp.artists.forEach(relatedArtist => {
+    relatedArtistObject.artists.forEach(relatedArtist => {
       relatedArtistsIds.push(relatedArtist.id);
     });
     relatedArtistsIds.forEach(id => {
