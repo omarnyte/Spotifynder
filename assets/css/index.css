@@ -88,6 +88,13 @@ a.button {
   border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 
+.logo {
+  width:292px;
+  height: 40px;
+
+  margin: 15px;
+}
+
 nav {
   position: relative;
 }
@@ -174,17 +181,6 @@ nav ul {
   border-radius: 3px;
   margin-top: 10px;
   background-color: #757575;
-}
-
-
-.site-title {
-  font-size: 25px;
-  color: #00E364;
-  transition: 1s;
-}
-
-.site-title:hover {
-  color: white;
 }
 
 .suggestions {

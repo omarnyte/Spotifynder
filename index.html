@@ -10,7 +10,11 @@
     <link rel="stylesheet" href="assets/css/index.css">
   </head>
   <body>
-    <h1 class="site-title">genreConnect</h1>
+    <img
+      class="logo"
+      src="./assets/images/logo.png"
+      alt="genreConnect logo"
+    >
 
 
     <nav class="top">
@@ -23,7 +27,7 @@
           <a href="#">About genreConnect</a>
           <div class="dropdown dropdown1">
             <div class="about">
-              <p>genreConnect is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinke of jQuery for AJAX requests made to the Spotify API using an API wrapper.</p>
+              <p>genreConnect is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinke of jQuery (for AJAX requests made to the Spotify API) and an API wrapper. The frontend is served by Node.js utilizing the Express framework.</p>
             </div>
           </div>
         </li>
@@ -32,6 +36,8 @@
           <a href="#">Instructions</a>
           <div class="dropdown instructions">
             <p>To get started, simply begin typing the name of an artist. Please be aware that genreConnect can only search artists whose discography appears on Spotify.</p>
+            <br>
+            <p>Once abubble graph and a 'related artists' chart has been loaded, you may hover over an artist's image to listen to a 30-second clip of a song by that artist. To see that artist's own related artists, you may click on the desired artist's name.</p>
           </div>
         </li>
 
