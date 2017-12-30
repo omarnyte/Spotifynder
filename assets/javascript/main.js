@@ -1,5 +1,6 @@
 import Spotify from 'spotify-web-api-js';
 
+import Navbar from './navbar';
 import Search from './search';
 import RelatedArtistsChart from './related_artists';
 import BubbleChart from './bubble_chart';
