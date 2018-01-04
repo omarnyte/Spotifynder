@@ -16,10 +16,10 @@ const charts = document.querySelector(".charts");
 function fetchMatches(e) {
   const searchQuery = searchBar.value;
 
-  // prevent sending an empty query after deleting
-  // TODO clear dropdown list when search value is empty
+  // prevent sending an empty query and remove search results
   if (searchQuery.length === 0) {
-    return;
+      suggestions.innerHTML = '';
+      return;
   }
 
   spotify.searchArtists(searchQuery, {limit: 5})
@@ -53,7 +53,9 @@ function appendEventListeners() {
 
 function createCharts(e) {
   // Hide welcome and reveal charts
-  welcome.classList.add("hidden");
+  // welcome.classList.add("hidden");
+  suggestions.innerHTML = '';
+  searchForm.reset();
   charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;
