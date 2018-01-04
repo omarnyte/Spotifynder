@@ -11356,9 +11356,10 @@ class relatedArtists {
     const name = e.target.textContent;
     const id = e.target.dataset.artistid;
 
-    console.log(`my name is ${name}`);
-    console.log(`my id is ${id}`);
+    // console.log(`my name is ${name}`);
+    // console.log(`my id is ${id}`);
 
+    // clears previous related artists chart
     let relatedArtistsChart = document.querySelector(".related-artists-chart");
     relatedArtistsChart.innerHTML = '<div class="previews"></div>';
 

@@ -20,7 +20,7 @@ html {
 }
 
 .logo {
-  width:292px;
+  width:238px;
   height: 40px;
 
   margin: 15px;
@@ -39,6 +39,8 @@ nav {
 }
 
 .nav-list-item {
+  border: 1px solid red;
+
   height: 70px;
   padding-left: 20px;
   padding-right: 20px;
@@ -80,6 +82,10 @@ nav {
 
 .related-artist-names {
   padding-left: 10px;
+}
+
+.related-artist-names:hover {
+  cursor: pointer;
 }
 
 .related-artist-thumbnail {
