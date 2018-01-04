@@ -4,12 +4,14 @@ html {
 }
 
 .charts {
+  margin-top: 25px;
+
   display: flex;
   justify-content: space-around;
 }
 
 .charts.hidden {
-  visibility: hidden;
+  display: none;
 }
 
 .footer {
@@ -28,21 +30,27 @@ nav {
   background:black;
   top:0;
   width: 100%;
-  transition:all 0.5s;
   position: relative;
-  z-index: 1;
 }
 
 .nav-list {
   display: flex;
   justify-content: space-around;
-  align-items: center;
 }
 
 .nav-list-item {
-  font-size: 25px;
+  height: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
+  /*border-right: 1px solid white;*/
+
+
+  font-size: 28px;
   font-weight: lighter;
   color: #ff6b5b;
+
+  display: flex;
+  align-items: center;
 }
 
 .personal-link-item {
@@ -111,10 +119,6 @@ nav {
   transition: 1s;
 }
 
-.site-title:hover {
-  color: white;
-}
-
 .suggestions {
   border: 1px solid red;
 
@@ -138,5 +142,5 @@ nav {
 }
 
 .welcome.hidden {
-  visibility: hidden;
+  display: none;
 }

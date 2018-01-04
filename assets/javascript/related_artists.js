@@ -11,6 +11,7 @@ export default class relatedArtists {
   render(artistName, relatedArtistObject) {
     this.populateChart(artistName, relatedArtistObject);
     this.populateAudioSources(relatedArtistObject);
+    this.appendListenersToArtists();
 
     // enables 30-second preview when hovering over thumbnail
     const thumbnails = Array.from(document.querySelectorAll('.related-artist-thumbnail'));
@@ -40,6 +41,7 @@ export default class relatedArtists {
       const span = document.createElement("span");
       span.textContent = artist.name;
       span.className = 'related-artist-names';
+      span.setAttribute('data-artistId', artist.id);
       div.appendChild(span);
     });
   }
@@ -88,5 +90,29 @@ export default class relatedArtists {
     } else {
       audio.pause();
     }
+  }
+
+  fetchNewArtist(e) {
+    const name = e.target.textContent;
+    const id = e.target.dataset.artistid;
+
+    console.log(`my name is ${name}`);
+    console.log(`my id is ${id}`);
+
+    let relatedArtistsChart = document.querySelector(".related-artists-chart");
+    relatedArtistsChart.innerHTML = '<div class="previews"></div>';
+
+    spotify.getArtistRelatedArtists(id)
+      .then(artistsResp => {
+        console.log(artistsResp);
+        new relatedArtists(name, artistsResp);
+      });
+  }
+
+  appendListenersToArtists() {
+    const allRelatedArtists = document.querySelectorAll('.related-artist-names');
+    allRelatedArtists.forEach(artist => {
+      artist.addEventListener('click', this.fetchNewArtist);
+    });
   }
 }

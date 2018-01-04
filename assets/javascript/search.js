@@ -3,24 +3,24 @@ import RelatedArtistsChart from './related_artists';
 
 import Spotify from 'spotify-web-api-js';
 
+
 const spotify = new Spotify();
 
-// prevent submission of form
-const searchForm = document.querySelector(".search-form");
-searchForm.addEventListener("submit", e => {
-  e.preventDefault();
-});
-
+const welcome = document.querySelector(".welcome");
+const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
-searchBar.addEventListener('keyup', fetchMatches);
-
 const suggestions = document.querySelector('.suggestions');
+const charts = document.querySelector(".charts");
+
 
 function fetchMatches(e) {
   const searchQuery = searchBar.value;
 
   // prevent sending an empty query after deleting
-  if (searchQuery.length === 0) return;
+  // TODO clear dropdown list when search value is empty
+  if (searchQuery.length === 0) {
+    return;
+  }
 
   spotify.searchArtists(searchQuery, {limit: 5})
     .then(queryResults => displayMatches(queryResults));
@@ -52,10 +52,8 @@ function appendEventListeners() {
 }
 
 function createCharts(e) {
-  const welcome = document.querySelector(".welcome");
+  // Hide welcome and reveal charts
   welcome.classList.add("hidden");
-
-  const charts = document.querySelector(".charts");
   charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;
@@ -64,7 +62,13 @@ function createCharts(e) {
 
   spotify.getArtistRelatedArtists(artistId)
     .then(relatedArtistsResp => {
-      new BubbleChart(relatedArtistsResp);
       new RelatedArtistsChart(artistName, relatedArtistsResp);
+      new BubbleChart(relatedArtistsResp);
     });
 }
+
+// prevent submission of form
+searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+});
+searchBar.addEventListener('keyup', fetchMatches);
