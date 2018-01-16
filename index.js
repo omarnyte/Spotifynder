@@ -12,10 +12,6 @@ app.use(express.static(__dirname + '/'))
 
 let token;
 
-if (process.env.PORT) {
-  port = process.env.PORT;
-}
-
 spotifyAuth((err, resp, body) => {
   token = body.access_token;
   console.log(`Listening on ${port}`);

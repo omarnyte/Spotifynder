@@ -43,3 +43,21 @@
 //
 // triggers.forEach(trigger => trigger.addEventListener('mouseenter', handleEnter));
 // triggers.forEach(trigger => trigger.addEventListener('mouseleave', handleLeave));
+
+const navList = document.querySelectorAll('.nav-list-item');
+console.log(navList);
+const dropdownContent = document.querySelectorAll('.dropdown-content');
+
+function displayDropdown(e) {
+  console.log(e);
+  let dropdown = e.target.children[1];
+  console.log(dropdown.classList);
+  dropdown.classList.add('revealed');
+}
+
+function hideDropdown(e) {
+  console.log(e);
+}
+
+navList.forEach(item => item.addEventListener('mouseenter', displayDropdown));
+dropdownContent.forEach(content => content.addEventListener('mouseleave', hideDropdown));

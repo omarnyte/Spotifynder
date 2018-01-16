@@ -14,6 +14,24 @@ html {
   display: none;
 }
 
+.dropdown-content {
+  width: 267px;
+  border: 1px solid black;
+
+  display: none;
+  position: absolute;
+  top: 78px;
+  z-index: 1;
+
+  font-size: 18px;
+  color: white;
+  background-color: #4B0082;
+}
+
+.dropdown-content.revealed {
+  display: block;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -30,7 +48,7 @@ nav {
   background:black;
   top:0;
   width: 100%;
-  position: relative;
+  position: fixed;
 }
 
 .nav-list {
@@ -49,7 +67,8 @@ nav {
 
   font-size: 28px;
   font-weight: lighter;
-  color: #ff6b5b;
+  /*color: #ff6b5b;*/
+  color: white;
 
   display: flex;
   align-items: center;
@@ -142,6 +161,8 @@ nav {
 }
 
 .welcome {
+  margin-top: 100px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
