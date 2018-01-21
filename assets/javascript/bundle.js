@@ -6827,7 +6827,7 @@ class BubbleChart {
     });
   }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = BubbleChart;
+/* unused harmony export default */
 
 
 
@@ -11481,8 +11481,8 @@ function hideDropdown(e) {
   console.log(e);
 }
 
-navList.forEach(item => item.addEventListener('mouseenter', displayDropdown));
-dropdownContent.forEach(content => content.addEventListener('mouseleave', hideDropdown));
+// navList.forEach(item => item.addEventListener('mouseenter', displayDropdown));
+// dropdownContent.forEach(content => content.addEventListener('mouseleave', hideDropdown));
 
 
 /***/ }),
@@ -11490,12 +11490,13 @@ dropdownContent.forEach(content => content.addEventListener('mouseleave', hideDr
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__bubble_chart__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__related_artists__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__related_artists__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graph__ = __webpack_require__(468);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__);
 
 
+// import BubbleChart from './bubble_chart';
 
 
 
@@ -11505,6 +11506,7 @@ const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a()
 const welcome = document.querySelector(".welcome");
 const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
+const mic = document.querySelector('.microphone');
 const suggestions = document.querySelector('.suggestions');
 const charts = document.querySelector(".charts");
 
@@ -11560,16 +11562,38 @@ function createCharts(e) {
 
   spotify.getArtistRelatedArtists(artistId)
     .then(relatedArtistsResp => {
-      new __WEBPACK_IMPORTED_MODULE_1__related_artists__["a" /* default */](artistName, relatedArtistsResp);
-      new __WEBPACK_IMPORTED_MODULE_0__bubble_chart__["a" /* default */](relatedArtistsResp);
+      new __WEBPACK_IMPORTED_MODULE_0__related_artists__["a" /* default */](artistName, relatedArtistsResp);
+      // new BubbleChart(relatedArtistsResp);
+      new __WEBPACK_IMPORTED_MODULE_1__graph__["a" /* default */](relatedArtistsResp);
     });
 }
+
+// function record() {
+//   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+//
+//   const recognition = new SpeechRecognition();
+//   recognition.interimResults = true;
+//
+//   recognition.start();
+//
+//   recognition.addEventListener('result', e => {
+//     const transcript = Array.from(e.results)
+//       .map(result => result[0])
+//       .map(result => result.transcript)
+//       .join('');
+//
+//       searchBar.value = 'teeeest';
+//       console.log(transcript);
+//   });
+// }
 
 // prevent submission of form
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
 });
 searchBar.addEventListener('keyup', fetchMatches);
+
+// mic.addEventListener('click', record);
 
 
 /***/ }),
@@ -24747,6 +24771,42 @@ function nopropagation() {
   __WEBPACK_IMPORTED_MODULE_0_d3_selection__["b" /* event */].preventDefault();
   __WEBPACK_IMPORTED_MODULE_0_d3_selection__["b" /* event */].stopImmediatePropagation();
 });
+
+
+/***/ }),
+/* 468 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Graph {
+  constructor(relatedArtistsResp) {
+    console.log(relatedArtistsResp);
+    this.countGenres(relatedArtistsResp);
+  }
+
+  render(relatedArtists) {
+  }
+
+  countGenres(relatedArtists) {
+    let genreCounter = {};
+
+    relatedArtists.artists.forEach(artist => {
+      artist.genres.forEach(genre => {
+        if (genreCounter[genre]) {
+          genreCounter[genre] += 1;
+        } else {
+          genreCounter[genre] = 1;
+        }
+      });
+    });
+    console.log(genreCounter);
+    return genreCounter;
+  }
+
+
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Graph;
+
 
 
 /***/ })

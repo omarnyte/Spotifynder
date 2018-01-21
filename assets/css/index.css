@@ -37,11 +37,31 @@ html {
   justify-content: space-between;
 }
 
+.graph {
+  border: 1px solid red;
+
+  width: 700px;
+  height: 700px;
+}
+
 .logo {
   width:238px;
   height: 40px;
 
   margin: 15px;
+}
+
+.microphone {
+  font-size: 25px;
+  color: #00E364;
+}
+
+.microphone:hover {
+  cursor: pointer;
+}
+
+.microphone:active {
+  color: red;
 }
 
 nav {
@@ -148,6 +168,8 @@ nav {
   border: 1px solid red;
 
   width: 220px;
+
+  z-index: 2;
 }
 
 .suggestions-item {

@@ -59,5 +59,5 @@ function hideDropdown(e) {
   console.log(e);
 }
 
-navList.forEach(item => item.addEventListener('mouseenter', displayDropdown));
-dropdownContent.forEach(content => content.addEventListener('mouseleave', hideDropdown));
+// navList.forEach(item => item.addEventListener('mouseenter', displayDropdown));
+// dropdownContent.forEach(content => content.addEventListener('mouseleave', hideDropdown));
