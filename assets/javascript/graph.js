@@ -9,6 +9,10 @@ export default class Graph {
   }
 
   populateGraph(relatedArtists) {
+    // clears previous graph
+    const graph = document.querySelector('.graph');
+    graph.innerHTML = '';
+
     let genreCount = this.countGenres(relatedArtists);
     console.log('genre count', genreCount);
 
@@ -22,24 +26,20 @@ export default class Graph {
     //   graph.appendChild(bar);
     // });
 
-    var ctx = document.querySelector('.graph').getContext('2d');
-    var myBarChart = new Chart(ctx, {
-      type: 'bar',
+    var svgns = "http://www.w3.org/2000/svg";
+    let y = 0;
+    Object.keys(genreCount).forEach(genre => {
+      const width = genreCount[genre] * 30;
+      y += 30;
 
-   // The data for our dataset
-   data: {
-       labels: Object.keys(genreCount),
-       datasets: [{
-           label: "My First dataset",
-           backgroundColor: 'rgb(255, 99, 132)',
-           borderColor: 'rgb(255, 99, 132)',
-           data: Object.values(genreCount),
-       }]
-   },
-
-   // Configuration options go here
-   options: {}
+      var rect = document.createElementNS(svgns, 'rect');
+      rect.setAttributeNS(null, 'y', y);
+      rect.setAttributeNS(null, 'height', '25');
+      rect.setAttributeNS(null, 'width', width);
+      rect.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
+      graph.appendChild(rect);
     });
+    console.log(document.querySelectorAll('rect'));
   }
 
   countGenres(relatedArtists) {

@@ -40,8 +40,9 @@ html {
 .graph {
   border: 1px solid red;
 
-  width: 700px;
-  height: 700px;
+  width: 900px;
+  /*height: 1000px;*/
+  height: 100%
 }
 
 .logo {
