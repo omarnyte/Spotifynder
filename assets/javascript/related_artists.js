@@ -1,5 +1,7 @@
 import Spotify from 'spotify-web-api-js';
 
+import Graph from './graph';
+
 const spotify = new Spotify();
 
 export default class relatedArtists {
@@ -21,13 +23,13 @@ export default class relatedArtists {
     });
   }
 
-  populateChart(artistName, relatedArtistObject) {
+  populateChart(artistName, relatedArtistsObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
     h1.textContent = `Related to ${artistName}`;
     relatedArtistsChart.appendChild(h1);
-    relatedArtistObject.artists.forEach((artist, idx) => {
+    relatedArtistsObject.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
       relatedArtistsChart.appendChild(div);
@@ -107,6 +109,7 @@ export default class relatedArtists {
       .then(artistsResp => {
         console.log(artistsResp);
         new relatedArtists(name, artistsResp);
+        new Graph(artistsResp);
       });
   }
 

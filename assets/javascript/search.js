@@ -61,7 +61,6 @@ function createCharts(e) {
   charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;
-  console.log(e);
   const artistId = e.target.dataset.artistid;
 
   spotify.getArtistRelatedArtists(artistId)

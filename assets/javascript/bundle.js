@@ -6755,6 +6755,9 @@ function clipEdges(x0, y0, x1, y1) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graph__ = __webpack_require__(176);
+
+
 
 
 const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
@@ -6778,13 +6781,13 @@ class relatedArtists {
     });
   }
 
-  populateChart(artistName, relatedArtistObject) {
+  populateChart(artistName, relatedArtistsObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-chart");
 
     const h1 = document.createElement("h1");
     h1.textContent = `Related to ${artistName}`;
     relatedArtistsChart.appendChild(h1);
-    relatedArtistObject.artists.forEach((artist, idx) => {
+    relatedArtistsObject.artists.forEach((artist, idx) => {
       const div = document.createElement("div");
       div.className = 'related-artists-item-div';
       relatedArtistsChart.appendChild(div);
@@ -6864,6 +6867,7 @@ class relatedArtists {
       .then(artistsResp => {
         console.log(artistsResp);
         new relatedArtists(name, artistsResp);
+        new __WEBPACK_IMPORTED_MODULE_1__graph__["a" /* default */](artistsResp);
       });
   }
 
@@ -11474,7 +11478,6 @@ function createCharts(e) {
   charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;
-  console.log(e);
   const artistId = e.target.dataset.artistid;
 
   spotify.getArtistRelatedArtists(artistId)
@@ -11526,15 +11529,19 @@ class Graph {
 
   render(relatedArtists) {
     this.populateGraph(relatedArtists);
+    this.appendListenersToBars();
   }
 
   populateGraph(relatedArtists) {
-    // clears previous graph
     const graph = document.querySelector('.graph');
+    const genreNames = document.querySelector('.genre-names');
+
+    // clears previous graph
+    genreNames.innerHTML = '';
     graph.innerHTML = '';
 
     let genreCount = this.countGenres(relatedArtists);
-    console.log('genre count', genreCount);
+    // console.log('genre count', genreCount);
 
     // const graph = document.querySelector('.graph');
     // Object.keys(genreCount).forEach(genre => {
@@ -11546,20 +11553,39 @@ class Graph {
     //   graph.appendChild(bar);
     // });
 
-    var svgns = "http://www.w3.org/2000/svg";
-    let y = 0;
-    Object.keys(genreCount).forEach(genre => {
-      const width = genreCount[genre] * 30;
-      y += 30;
+    // with SVG rather than standard div
+    // var svgns = "http://www.w3.org/2000/svg";
+    // let y = 0;
+    // Object.keys(genreCount).forEach(genre => {
+    //   const width = genreCount[genre] * 30;
+    //   y += 30;
+    //
+    //   var rect = document.createElementNS(svgns, 'rect');
+    //   rect.setAttributeNS(null, 'y', y);
+    //   rect.setAttributeNS(null, 'height', '25');
+    //   rect.setAttributeNS(null, 'width', width);
+    //   rect.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
+    //   graph.appendChild(rect);
+    // });
+    // console.log(document.querySelectorAll('rect'));
 
-      var rect = document.createElementNS(svgns, 'rect');
-      rect.setAttributeNS(null, 'y', y);
-      rect.setAttributeNS(null, 'height', '25');
-      rect.setAttributeNS(null, 'width', width);
-      rect.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
-      graph.appendChild(rect);
+    // with standard div
+    Object.keys(genreCount).forEach(genre => {
+      const bar = document.createElement('div');
+
+      const width = genreCount[genre] * 40;
+
+      bar.className = 'bar';
+      bar.style.height = '25px';
+      bar.style.width = `${width}px`;
+      graph.append(bar);
+
+      const genreName = document.createElement('span');
+      genreName.innerHTML = genre;
+      genreNames.appendChild(genreName);
+
     });
-    console.log(document.querySelectorAll('rect'));
+
   }
 
   countGenres(relatedArtists) {
@@ -11579,7 +11605,17 @@ class Graph {
     return genreCounter;
   }
 
+  appendListenersToBars() {
+    const bars = document.querySelectorAll('rect');
+    bars.forEach(bar => {
+      bar.addEventListener('mouseenter', this.highlightArtists);
+      });
+  }
 
+  highlightArtists(e) {
+    const allArtists = document.querySelectorAll('.related-artists-item-div');
+    console.log(allArtists);
+  }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Graph;
 
