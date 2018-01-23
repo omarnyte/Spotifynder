@@ -1,11 +1,26 @@
+h1 {
+  font-weight: lighter;
+  font-family: "Helvetica","Arial",sans-serif;
+  color: white;
+}
+
 .graph-div {
+  width: calc(100% - 330px);
+  height: calc(100% - 28px);
+
   position: absolute;
   right: 0;
+  border: 15px solid gray;
+
+  background: #eca7c0;
+}
+
+.logo {
+  width: 75px;
+  width: 75px;
 }
 
 .menu-div {
-  border: 1px solid red;
-
   width: 300px;
   height: 100%;
 
@@ -14,4 +29,20 @@
 
   background: #303438;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.related-artists-index {
+  list-style-type: none;
+
+  position: relative;
+  overflow-x: scroll;
+}
+
+.related-artist-thumbnail {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
 }
