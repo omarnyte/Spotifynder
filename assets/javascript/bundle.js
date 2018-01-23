@@ -11550,6 +11550,8 @@ function fetchMatches(e) {
 function displayMatches(queryResults) {
   const artistResults = queryResults.artists.items;
 
+  suggestions.classList.remove('hidden');
+
   const html = artistResults.map(artistObject => {
     const name = artistObject.name;
     const id = artistObject.id;

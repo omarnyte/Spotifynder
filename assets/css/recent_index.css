@@ -1,0 +1,226 @@
+html {
+  background-color: #1E293B;
+  font-family: "Helvetica","Arial",sans-serif;
+}
+
+.bar {
+  background: pink;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.bar-graph {
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+}
+
+.charts {
+  margin-top: 25px;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.charts.hidden {
+  display: none;
+}
+
+.dropdown-content {
+  width: 267px;
+  border: 1px solid black;
+
+  display: none;
+  position: absolute;
+  top: 78px;
+  z-index: 1;
+
+  font-size: 18px;
+  color: white;
+  background-color: #4B0082;
+}
+
+.dropdown-content.revealed {
+  display: block;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.genre-names {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  color: white;
+}
+
+.genre-names > span {
+  height: 15px;
+  padding-top: 9px;
+  padding-bottom: 5px;
+}
+
+.graph {
+  border: 1px solid red;
+
+  width: 900px;
+  height: 100%
+}
+
+.logo {
+  width:238px;
+  height: 40px;
+
+  margin: 15px;
+}
+
+.microphone {
+  font-size: 25px;
+  color: #00E364;
+}
+
+.microphone:hover {
+  cursor: pointer;
+}
+
+.microphone:active {
+  color: red;
+}
+
+nav {
+  background:black;
+  top:0;
+  width: 100%;
+  position: fixed;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-list-item {
+  border: 1px solid red;
+
+  height: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
+  /*border-right: 1px solid white;*/
+
+
+  font-size: 28px;
+  font-weight: lighter;
+  /*color: #ff6b5b;*/
+  color: white;
+
+  display: flex;
+  align-items: center;
+}
+
+.personal-link-item {
+  font-weight: bold;
+  color: #ff6b5b;
+}
+
+.prompt {
+  font-weight: lighter;
+  font-style: italic;
+  color: white;
+}
+
+.related-artists-chart {
+  width: 250px;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.related-artists-chart > div {
+  padding: 10px;
+
+  display: flex;
+  align-items: center;
+}
+
+.related-artist-names {
+  padding-left: 10px;
+}
+
+.related-artist-names:hover {
+  cursor: pointer;
+}
+
+.related-artist-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+
+  transition: 1s;
+
+  cursor: pointer;
+}
+
+/*spinning animation found at http://jsfiddle.net/gionaf/Ugc5g/*/
+.related-artist-thumbnail:hover {
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.search-bar {
+  height: 25px;
+  width: 200px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 3px;
+  margin-top: 10px;
+  background-color: #757575;
+}
+
+.site-title {
+  font-size: 25px;
+  color: #00E364;
+  transition: 1s;
+}
+
+.suggestions.hidden {
+  border: none;
+}
+
+.suggestions {
+  border: 1px solid red;
+
+  width: 220px;
+
+  z-index: 2;
+}
+
+.suggestions-item {
+  margin: 5px;
+
+  color: #00E364;
+}
+
+.suggestions-item-name {
+  cursor: pointer;
+}
+
+.welcome {
+  margin-top: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.welcome.hidden {
+  display: none;
+}
