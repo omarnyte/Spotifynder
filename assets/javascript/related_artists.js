@@ -11,6 +11,10 @@ export default class relatedArtists {
   }
 
   render(artistName, relatedArtistObject) {
+    // clears previous related artists chart
+    let relatedArtistsChart = document.querySelector(".related-artists-chart");
+    relatedArtistsChart.innerHTML = '<div class="previews"></div>';
+
     this.populateChart(artistName, relatedArtistObject);
     this.populateAudioSources(relatedArtistObject);
     this.appendListenersToArtists();
@@ -97,13 +101,6 @@ export default class relatedArtists {
   fetchNewArtist(e) {
     const name = e.target.textContent;
     const id = e.target.dataset.artistid;
-
-    // console.log(`my name is ${name}`);
-    // console.log(`my id is ${id}`);
-
-    // clears previous related artists chart
-    let relatedArtistsChart = document.querySelector(".related-artists-chart");
-    relatedArtistsChart.innerHTML = '<div class="previews"></div>';
 
     spotify.getArtistRelatedArtists(id)
       .then(artistsResp => {
