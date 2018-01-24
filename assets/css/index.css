@@ -6,7 +6,7 @@ h1 {
 
 .graph-div {
   width: calc(100% - 330px);
-  height: calc(100% - 28px);
+  height: calc(100% - 30px);
 
   position: absolute;
   right: 0;
@@ -41,8 +41,22 @@ h1 {
   overflow-x: scroll;
 }
 
+.related-artists-item {
+  width: 250px;
+  height: 40px;
+  border-top: 1px dotted #fff;
+}
+
 .related-artist-thumbnail {
   width: 30px;
   height: 30px;
   border-radius: 30px;
+}
+
+.search-modal {
+  border: 1px solid red;
+  border-radius: 5px;
+
+  width: 500px;
+  height: 300px;
 }
