@@ -12,7 +12,7 @@ const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
 const mic = document.querySelector('.microphone');
 const suggestions = document.querySelector('.suggestions');
-const charts = document.querySelector(".charts");
+// const charts = document.querySelector(".charts");
 
 
 function fetchMatches(e) {
@@ -60,7 +60,7 @@ function createCharts(e) {
   // welcome.classList.add("hidden");
   suggestions.innerHTML = '';
   searchForm.reset();
-  charts.classList.remove("hidden");
+  // charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;
   const artistId = e.target.dataset.artistid;

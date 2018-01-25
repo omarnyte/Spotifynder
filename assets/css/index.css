@@ -37,6 +37,7 @@ h1 {
 .related-artists-index {
   list-style-type: none;
 
+  width: 100%;
   position: relative;
   overflow-x: scroll;
 }

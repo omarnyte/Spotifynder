@@ -12,7 +12,7 @@ export default class relatedArtists {
 
   render(artistName, relatedArtistObject) {
     // clears previous related artists chart
-    let relatedArtistsChart = document.querySelector(".related-artists-chart");
+    let relatedArtistsChart = document.querySelector(".related-artists-index");
     relatedArtistsChart.innerHTML = '<div class="previews"></div>';
 
     this.populateChart(artistName, relatedArtistObject);
@@ -28,27 +28,27 @@ export default class relatedArtists {
   }
 
   populateChart(artistName, relatedArtistsObject) {
-    const relatedArtistsChart = document.querySelector(".related-artists-chart");
+    const relatedArtistsChart = document.querySelector(".related-artists-index");
 
-    const h1 = document.createElement("h1");
-    h1.textContent = `Related to ${artistName}`;
-    relatedArtistsChart.appendChild(h1);
+    // const h1 = document.createElement("h1");
+    // h1.textContent = `Related to ${artistName}`;
+    // relatedArtistsChart.appendChild(h1);
     relatedArtistsObject.artists.forEach((artist, idx) => {
-      const div = document.createElement("div");
-      div.className = 'related-artists-item-div';
-      relatedArtistsChart.appendChild(div);
+      const li = document.createElement("li");
+      li.className = 'related-artists-item-li';
+      relatedArtistsChart.appendChild(li);
 
       const img = document.createElement("img");
       img.className = 'related-artist-thumbnail';
       img.src = this.selectImageThumbnail(artist.images);
       img.setAttribute('data-artistId', artist.id);
-      div.appendChild(img);
+      li.appendChild(img);
 
       const span = document.createElement("span");
       span.textContent = artist.name;
-      span.className = 'related-artist-names';
+      span.className = 'related-artist-name';
       span.setAttribute('data-artistId', artist.id);
-      div.appendChild(span);
+      li.appendChild(span);
     });
   }
 
