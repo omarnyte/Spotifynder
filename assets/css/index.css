@@ -45,7 +45,19 @@ h1 {
 .related-artists-item {
   width: 250px;
   height: 40px;
+  margin-left: 10px;
   border-top: 1px dotted #fff;
+
+
+  display: flex;
+  align-items: center;
+}
+
+.related-artist-name {
+  margin-left: 5px;
+
+  color: white;
+  letter-spacing: 2px;
 }
 
 .related-artist-thumbnail {

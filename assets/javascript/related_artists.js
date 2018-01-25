@@ -35,7 +35,7 @@ export default class relatedArtists {
     // relatedArtistsChart.appendChild(h1);
     relatedArtistsObject.artists.forEach((artist, idx) => {
       const li = document.createElement("li");
-      li.className = 'related-artists-item-li';
+      li.className = 'related-artists-item';
       relatedArtistsChart.appendChild(li);
 
       const img = document.createElement("img");
