@@ -34,9 +34,13 @@ h1 {
 
   background: #eca7c0;
 
+  overflow-x: scroll;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
+
 }
 
 .logo {
@@ -115,19 +119,49 @@ h1 {
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
+.search-bar {
+  border: 1px solid white;
+}
+
+.search-form {
+
+}
+
 .search-modal {
-  border: 1px solid red;
+  /*border: 1px solid red;
   border-radius: 5px;
 
   width: 500px;
   height: 300px;
 
+  color: white;*/
+
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+
   color: white;
-/*
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);*/
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .search-modal.hidden {
   display: none;
+}
+
+.search-modal > span {
+  font-size: 20px;
+  font-weight: lighter;
+  text-transform: uppercase;
 }
