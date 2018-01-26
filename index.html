@@ -9,6 +9,16 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
   </head>
   <body>
+    <div class="about-modal hidden">
+      <div class="search-modal-content">
+        <p>Spotifynder is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinke of jQuery (for an initial AJAX requests for a Spotify token) and an API wrapper (to fulfill subsequent API requests). The frontend is served by Node.js utilizing the Express framework.</p>
+        <br>
+        <p>The graphs are built entirely on HTML and CSS, and they are made interactive with vanilla JavaScript.</p>
+        <i class="fa fa-github" aria-hidden="true"></i>
+        <i class="fa fa-linkedin" aria-hidden="true"></i>
+
+      </div>
+    </div>
     <div class="search-modal">
       <div class="search-modal-content">
         <h1>Welcome to Spotifynder</h1>
@@ -34,7 +44,7 @@
 
     <div class="graph-div">
         <ul class="nav-list">
-          <li>ABOUT</li>
+          <li class="about-button">ABOUT</li>
           <li class="new-search-button">NEW SEARCH</li>
           <li>SOUND ON</li>
         </ul>

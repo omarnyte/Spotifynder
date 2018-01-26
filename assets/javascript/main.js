@@ -6,6 +6,8 @@ import RelatedArtistsChart from './related_artists';
 import BubbleChart from './bubble_chart';
 
 const spotify = new Spotify();
+const aboutButton = document.querySelector('.about-button');
+const aboutModal = document.querySelector('.about-modal');
 
 let token;
 
@@ -17,4 +19,8 @@ $.ajax({
     spotify.setAccessToken(token);
   }
   // TODO on error, attempt to get new token
+});
+
+aboutButton.addEventListener('click', () => {
+  aboutModal.classList.remove('hidden');
 });

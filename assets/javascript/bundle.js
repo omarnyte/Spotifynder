@@ -11426,6 +11426,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+const aboutButton = document.querySelector('.about-button');
+const aboutModal = document.querySelector('.about-modal');
 
 let token;
 
@@ -11437,6 +11439,10 @@ $.ajax({
     spotify.setAccessToken(token);
   }
   // TODO on error, attempt to get new token
+});
+
+aboutButton.addEventListener('click', () => {
+  aboutModal.classList.remove('hidden');
 });
 
 
