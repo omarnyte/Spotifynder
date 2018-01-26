@@ -11531,6 +11531,7 @@ const searchModal = document.querySelector(".search-modal");
 const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
 const mic = document.querySelector('.microphone');
+const newSearchButton = document.querySelector('.new-search-button');
 const suggestions = document.querySelector('.suggestions');
 // const charts = document.querySelector(".charts");
 
@@ -11618,8 +11619,10 @@ searchForm.addEventListener("submit", e => {
   e.preventDefault();
 });
 searchBar.addEventListener('keyup', fetchMatches);
-
 // mic.addEventListener('click', record);
+newSearchButton.addEventListener('click', () =>
+  searchModal.classList.remove('hidden')
+);
 
 
 /***/ }),
