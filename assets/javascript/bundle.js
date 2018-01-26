@@ -11541,6 +11541,7 @@ function fetchMatches(e) {
 
   // prevent sending an empty query and remove search results
   if (searchQuery.length === 0) {
+      suggestions.classList.add('hidden');
       suggestions.innerHTML = '';
       return;
   }
