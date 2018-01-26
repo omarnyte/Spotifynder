@@ -34,6 +34,10 @@ h1 {
   margin-bottom: 5px;
 }
 
+.close-modal-button {
+  cursor: pointer;
+}
+
 .genre-graph-div {
   display: flex;
 }

@@ -11428,6 +11428,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
 const aboutButton = document.querySelector('.about-button');
 const aboutModal = document.querySelector('.about-modal');
+const closeModalButton = document.querySelector('.close-modal-button');
+
 
 let token;
 
@@ -11443,6 +11445,9 @@ $.ajax({
 
 aboutButton.addEventListener('click', () => {
   aboutModal.classList.remove('hidden');
+});
+closeModalButton.addEventListener('click', () => {
+  aboutModal.classList.add('hidden');
 });
 
 
@@ -11533,11 +11538,11 @@ function hideDropdown(e) {
 
 const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a();
 
-const searchModal = document.querySelector(".search-modal");
-const searchForm = document.querySelector('.search-form');
-const searchBar = document.querySelector('.search-bar');
 const mic = document.querySelector('.microphone');
 const newSearchButton = document.querySelector('.new-search-button');
+const searchBar = document.querySelector('.search-bar');
+const searchForm = document.querySelector('.search-form');
+const searchModal = document.querySelector(".search-modal");
 const suggestions = document.querySelector('.suggestions');
 // const charts = document.querySelector(".charts");
 

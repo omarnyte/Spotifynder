@@ -8,6 +8,8 @@ import BubbleChart from './bubble_chart';
 const spotify = new Spotify();
 const aboutButton = document.querySelector('.about-button');
 const aboutModal = document.querySelector('.about-modal');
+const closeModalButton = document.querySelector('.close-modal-button');
+
 
 let token;
 
@@ -23,4 +25,7 @@ $.ajax({
 
 aboutButton.addEventListener('click', () => {
   aboutModal.classList.remove('hidden');
+});
+closeModalButton.addEventListener('click', () => {
+  aboutModal.classList.add('hidden');
 });

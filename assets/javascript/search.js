@@ -7,11 +7,11 @@ import Spotify from 'spotify-web-api-js';
 
 const spotify = new Spotify();
 
-const searchModal = document.querySelector(".search-modal");
-const searchForm = document.querySelector('.search-form');
-const searchBar = document.querySelector('.search-bar');
 const mic = document.querySelector('.microphone');
 const newSearchButton = document.querySelector('.new-search-button');
+const searchBar = document.querySelector('.search-bar');
+const searchForm = document.querySelector('.search-form');
+const searchModal = document.querySelector(".search-modal");
 const suggestions = document.querySelector('.suggestions');
 // const charts = document.querySelector(".charts");
 
