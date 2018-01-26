@@ -111,7 +111,7 @@ export default class relatedArtists {
   }
 
   appendListenersToArtists() {
-    const allRelatedArtists = document.querySelectorAll('.related-artist-names');
+    const allRelatedArtists = document.querySelectorAll('.related-artist-name');
     allRelatedArtists.forEach(artist => {
       artist.addEventListener('click', this.fetchNewArtist);
     });
