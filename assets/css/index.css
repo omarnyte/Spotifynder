@@ -4,6 +4,26 @@ h1 {
   color: white;
 }
 
+.bar {
+  background-color: red;
+  margin-bottom: 5px;
+}
+
+.genre-graph-div {
+  display: flex;
+}
+
+.genre-names {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.genre-names > span {
+  color: #303438;
+  margin-bottom: 5px;
+}
+
 .graph-div {
   width: calc(100% - 330px);
   height: calc(100% - 30px);
@@ -48,6 +68,7 @@ h1 {
 
   font-size: 12px;
   color: #303438;
+  cursor: pointer;
 }
 
 .related-artists-index {
@@ -105,4 +126,8 @@ h1 {
 /*
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);*/
+}
+
+.search-modal.hidden {
+  display: none;
 }

@@ -7,7 +7,7 @@ import Spotify from 'spotify-web-api-js';
 
 const spotify = new Spotify();
 
-const welcome = document.querySelector(".welcome");
+const searchModal = document.querySelector(".search-modal");
 const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
 const mic = document.querySelector('.microphone');
@@ -56,10 +56,11 @@ function appendEventListeners() {
 }
 
 function createCharts(e) {
-  // Hide welcome and reveal charts
-  // welcome.classList.add("hidden");
+  // Hide search modal and reveal charts
+  searchModal.classList.add("hidden");
   suggestions.innerHTML = '';
   searchForm.reset();
+
   // charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;

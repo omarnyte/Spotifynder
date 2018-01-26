@@ -6897,6 +6897,7 @@ class Graph {
 
   populateGraph(relatedArtists) {
     const graph = document.querySelector('.graph');
+    console.log('graph', graph);
     const genreNames = document.querySelector('.genre-names');
 
     // clears previous graph
@@ -11526,7 +11527,7 @@ function hideDropdown(e) {
 
 const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a();
 
-const welcome = document.querySelector(".welcome");
+const searchModal = document.querySelector(".search-modal");
 const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
 const mic = document.querySelector('.microphone');
@@ -11575,10 +11576,11 @@ function appendEventListeners() {
 }
 
 function createCharts(e) {
-  // Hide welcome and reveal charts
-  // welcome.classList.add("hidden");
+  // Hide search modal and reveal charts
+  searchModal.classList.add("hidden");
   suggestions.innerHTML = '';
   searchForm.reset();
+
   // charts.classList.remove("hidden");
 
   const artistName = e.target.textContent;

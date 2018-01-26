@@ -11,6 +11,7 @@ export default class Graph {
 
   populateGraph(relatedArtists) {
     const graph = document.querySelector('.graph');
+    console.log('graph', graph);
     const genreNames = document.querySelector('.genre-names');
 
     // clears previous graph
