@@ -17,7 +17,7 @@ const searchModal = document.querySelector(".search-modal");
 const suggestions = document.querySelector('.suggestions');
 
 
-function fetchMatches(e) {
+function fetchMatches() {
   const searchQuery = searchBar.value;
 
   // prevent sending an empty query and remove search results
@@ -80,10 +80,10 @@ function createCharts(e) {
 function record() {
   recording = true;
   mic.classList.add('recording');
-  console.log('recording', recording);
+  // console.log('recording', recording);
 
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  //
+
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
 
@@ -96,7 +96,6 @@ function record() {
       .join('');
 
       searchBar.value = transcript;
-      console.log(transcript);
   });
 }
 
@@ -105,7 +104,9 @@ function stopRecording() {
 
   recording = false;
   mic.classList.remove('recording');
-  console.log('recording', recording);
+  // console.log('recording', recording);
+
+  fetchMatches();
 }
 
 // prevent submission of form
