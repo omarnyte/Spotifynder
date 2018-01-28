@@ -189,7 +189,7 @@ h1 {
 .search-div {
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 
@@ -198,6 +198,12 @@ h1 {
 
   font-size: 30px;
 }
+
+.search-div > i.recording {
+  color: red;
+}
+
+
 
 .search-modal {
   display: block;

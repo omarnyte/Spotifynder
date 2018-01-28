@@ -11541,13 +11541,14 @@ function hideDropdown(e) {
 
 const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a();
 
+let recording = false;
+
 const mic = document.querySelector('.microphone');
 const newSearchButton = document.querySelector('.new-search-button');
 const searchBar = document.querySelector('.search-bar');
 const searchForm = document.querySelector('.search-form');
 const searchModal = document.querySelector(".search-modal");
 const suggestions = document.querySelector('.suggestions');
-// const charts = document.querySelector(".charts");
 
 
 function fetchMatches(e) {
@@ -11610,31 +11611,43 @@ function createCharts(e) {
     });
 }
 
-// function record() {
-//   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-//
-//   const recognition = new SpeechRecognition();
-//   recognition.interimResults = true;
-//
-//   recognition.start();
-//
-//   recognition.addEventListener('result', e => {
-//     const transcript = Array.from(e.results)
-//       .map(result => result[0])
-//       .map(result => result.transcript)
-//       .join('');
-//
-//       searchBar.value = 'teeeest';
-//       console.log(transcript);
-//   });
-// }
+function record() {
+  recording = true;
+  mic.classList.add('recording');
+  console.log('recording', recording);
+  // window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  //
+  // const recognition = new SpeechRecognition();
+  // recognition.interimResults = true;
+  //
+  // recognition.start();
+  //
+  // recognition.addEventListener('result', e => {
+  //   const transcript = Array.from(e.results)
+  //     .map(result => result[0])
+  //     .map(result => result.transcript)
+  //     .join('');
+  //
+  //     searchBar.value = 'teeeest';
+  //     console.log(transcript);
+  // });
+}
+
+function stopRecording() {
+  if (recording == false) return;
+
+  recording = false;
+  mic.classList.remove('recording');
+  console.log('recording', recording);
+}
 
 // prevent submission of form
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
 });
 searchBar.addEventListener('keyup', fetchMatches);
-// mic.addEventListener('click', record);
+mic.addEventListener('mousedown', record);
+document.addEventListener('mouseup', stopRecording);
 newSearchButton.addEventListener('click', () =>
   searchModal.classList.remove('hidden')
 );
