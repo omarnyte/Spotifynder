@@ -19,14 +19,18 @@ h1 {
   color: white;
   letter-spacing: 2px;
 
-  display: flex;
+  /*display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center;*/
 }
 
 .about-modal.hidden {
   display: none;
+}
+
+.about-modal-content {
+
 }
 
 .bar {
@@ -35,6 +39,7 @@ h1 {
 }
 
 .close-modal-button {
+  font-size: 100px;
   cursor: pointer;
 }
 
@@ -104,6 +109,17 @@ h1 {
   cursor: pointer;
 }
 
+.professional-links-div {
+  width: 200px;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.professional-links-div > a >  i {
+  font-size: 50px;
+}
+
 .related-artists-index {
   list-style-type: none;
 
@@ -150,7 +166,8 @@ h1 {
 
 .search-bar {
   padding: 5px 10px 5px 10px;
-  border: 1px solid white;
+  border: 2px solid white;
+  margin-top: 10px;
 }
 
 .search-form {
@@ -171,10 +188,10 @@ h1 {
   color: white;
   letter-spacing: 2px;
 
-  display: flex;
+  /*display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center;*/
 }
 
 .search-modal.hidden {
@@ -184,10 +201,13 @@ h1 {
 .search-modal-content {
   width: 500px;
 
+  margin: 0 auto;
+  margin-top: 200px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+  }
 
 .search-modal-content > h1 {
   font-size: 28px;

@@ -9,29 +9,37 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
   </head>
   <body>
-    <div class="about-modal hidden">
-      <i class="fa fa-times close-modal-button" aria-hidden="true"></i>
-      <div class="search-modal-content">
-        <p>Spotifynder is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinke of jQuery (for an initial AJAX requests for a Spotify token) and an API wrapper (to fulfill subsequent API requests). The frontend is served by Node.js utilizing the Express framework.</p>
-        <br>
-        <p>The graphs are built entirely on HTML and CSS, and they are made interactive with vanilla JavaScript.</p>
-        <i class="fa fa-github" aria-hidden="true"></i>
-        <i class="fa fa-linkedin" aria-hidden="true"></i>
-
-      </div>
-    </div>
     <div class="search-modal">
       <div class="search-modal-content">
         <h1>Welcome to Spotifynder</h1>
         <br>
         <span>Enter an artist's name below to see their related artists. The graph will show you how many times each genre apears for those artists.</span>
         <br>
-        <span>You can also search by clicking (and holding) the microphone icon and speaking speking the artist's name.</span>
+        <span>You can also search by clicking (and holding) the microphone icon and speaking speking the artist's name. You will have to enable browser access to your microphone when prompted.</span>
         <form class="search-form">
           <input class="search-bar" type="text" name="" value="" placeholder="enter an artist">
           <i class="microphone fa fa-microphone"></i>
           <ul class="suggestions hidden"></ul>
         </form>
+      </div>
+    </div>
+    <div class="about-modal hidden">
+      <div class="search-modal-content">
+        <i class="fa fa-times close-modal-button" aria-hidden="true"></i>
+        <p>Spotifynder is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinke of jQuery (for an initial AJAX requests for a Spotify token) and an API wrapper (to fulfill subsequent API requests). The frontend is served by Node.js utilizing the Express framework.</p>
+        <br>
+        <p>The graphs are built entirely on HTML and CSS, and they are made interactive with vanilla JavaScript.</p>
+        <br>
+        <span>The layout for the project was inspired by <a href="http://www.histography.io/">histography.io</a></span>
+        <div class="professional-links-div">
+          <a href="https://github.com/omarnyte" target="_blank">
+            <i class="fa fa-github professional-link-button" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/omardls/" target="_blank">
+            <i class="fa fa-linkedin professional-link-button" aria-hidden="true"></i>
+          </a>
+        </div>
+
       </div>
     </div>
 
