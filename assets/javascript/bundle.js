@@ -6897,7 +6897,7 @@ class Graph {
 
   populateGraph(relatedArtists) {
     const graph = document.querySelector('.graph');
-    console.log('graph', graph);
+    // console.log('graph', graph);
     const genreNames = document.querySelector('.genre-names');
 
     // clears previous graph
@@ -11429,7 +11429,7 @@ const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a()
 const aboutButton = document.querySelector('.about-button');
 const aboutModal = document.querySelector('.about-modal');
 const closeModalButton = document.querySelector('.close-modal-button');
-
+const returnButton = document.querySelector('.return-button');
 
 let token;
 
@@ -11447,6 +11447,9 @@ aboutButton.addEventListener('click', () => {
   aboutModal.classList.remove('hidden');
 });
 closeModalButton.addEventListener('click', () => {
+  aboutModal.classList.add('hidden');
+});
+returnButton.addEventListener('click', () => {
   aboutModal.classList.add('hidden');
 });
 

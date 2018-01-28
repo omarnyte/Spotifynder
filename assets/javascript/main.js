@@ -9,7 +9,7 @@ const spotify = new Spotify();
 const aboutButton = document.querySelector('.about-button');
 const aboutModal = document.querySelector('.about-modal');
 const closeModalButton = document.querySelector('.close-modal-button');
-
+const returnButton = document.querySelector('.return-button');
 
 let token;
 
@@ -27,5 +27,8 @@ aboutButton.addEventListener('click', () => {
   aboutModal.classList.remove('hidden');
 });
 closeModalButton.addEventListener('click', () => {
+  aboutModal.classList.add('hidden');
+});
+returnButton.addEventListener('click', () => {
   aboutModal.classList.add('hidden');
 });

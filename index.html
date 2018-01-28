@@ -16,19 +16,21 @@
         <span>Enter an artist's name below to see their related artists. The graph will show you how many times each genre apears for those artists.</span>
         <br>
         <span>You can also search by clicking (and holding) the microphone icon and speaking speking the artist's name. You will have to enable browser access to your microphone when prompted.</span>
-        <form class="search-form">
-          <input class="search-bar" type="text" name="" value="" placeholder="enter an artist">
+        <div class="search-div">
+          <form class="search-form">
+            <input class="search-bar" type="text" name="" value="" placeholder="enter an artist">
+            <ul class="suggestions hidden"></ul>
+          </form>
           <i class="microphone fa fa-microphone"></i>
-          <ul class="suggestions hidden"></ul>
-        </form>
+        </div>
       </div>
     </div>
     <div class="about-modal hidden">
       <div class="search-modal-content">
         <i class="fa fa-times close-modal-button" aria-hidden="true"></i>
-        <p>Spotifynder is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinke of jQuery (for an initial AJAX requests for a Spotify token) and an API wrapper (to fulfill subsequent API requests). The frontend is served by Node.js utilizing the Express framework.</p>
+        <p>Spotifynder is an audio visualization built using vanilla HTML, CSS, and JavaScript with a sprinkle of jQuery (for an initial AJAX requests for a Spotify token) and an API wrapper (to fulfill subsequent API requests). The frontend is served by Node.js utilizing the Express framework.</p>
         <br>
-        <p>The graphs are built entirely on HTML and CSS, and they are made interactive with vanilla JavaScript.</p>
+        <p>The graphs and chartrs are built entirely on HTML and CSS, and they are made interactive with vanilla JavaScript.</p>
         <br>
         <span>The layout for the project was inspired by <a href="http://www.histography.io/">histography.io</a></span>
         <div class="professional-links-div">
@@ -39,13 +41,17 @@
             <i class="fa fa-linkedin professional-link-button" aria-hidden="true"></i>
           </a>
         </div>
+        <br>
+        <button type="button" name="button" class="return-button">Return to Spotifynder</button>
 
       </div>
     </div>
 
     <div class="menu-div">
-      <img class="logo" src="assets/images/nodes_logo.png" alt="">
-      <h1>Spotifynder</h1>
+      <div class="top-menu">
+        <img class="logo" src="assets/images/nodes_logo.png" alt="">
+        <h1>Spotifynder</h1>
+      </div>
       <ul class="related-artists-index">
 
       </ul>
