@@ -2096,7 +2096,7 @@ class relatedArtists {
     const artistId = e.target.dataset.artistid;
     const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
 
-    console.log(window.muted);
+    if (window.muted) return;
 
     if (!audio) return;
     audio.currentTime = 0;
