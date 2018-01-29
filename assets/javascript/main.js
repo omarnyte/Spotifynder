@@ -1,17 +1,18 @@
 import Spotify from 'spotify-web-api-js';
 
-import Navbar from './navbar';
 import Search from './search';
-import RelatedArtistsChart from './related_artists';
-import BubbleChart from './bubble_chart';
 
-const spotify = new Spotify();
 const aboutButton = document.querySelector('.about-button');
 const aboutModal = document.querySelector('.about-modal');
 const closeModalButton = document.querySelector('.close-modal-button');
+const muteButton = document.querySelector('.mute-button');
 const returnButton = document.querySelector('.return-button');
 
 let token;
+
+window.muted = false;
+
+const spotify = new Spotify();
 
 $.ajax({
   url: '/callback',
@@ -23,12 +24,23 @@ $.ajax({
   // TODO on error, attempt to get new token
 });
 
+function toggleMute(e) {
+  if (muted == false) {
+    muted = true;
+    e.target.innerText = 'SOUND OFF';
+  } else {
+    muted = false;
+    e.target.innerText = 'SOUND ON';
+  }
+}
+
 aboutButton.addEventListener('click', () => {
   aboutModal.classList.remove('hidden');
 });
 closeModalButton.addEventListener('click', () => {
   aboutModal.classList.add('hidden');
 });
+muteButton.addEventListener('click', toggleMute);
 returnButton.addEventListener('click', () => {
   aboutModal.classList.add('hidden');
 });

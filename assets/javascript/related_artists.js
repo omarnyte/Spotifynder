@@ -89,6 +89,9 @@ export default class relatedArtists {
   togglePreview(e) {
     const artistId = e.target.dataset.artistid;
     const audio = document.querySelector(`audio[data-artistid="${artistId}"]`);
+
+    console.log(window.muted);
+
     if (!audio) return;
     audio.currentTime = 0;
     if(!!audio.paused) {
@@ -99,8 +102,8 @@ export default class relatedArtists {
   }
 
   fetchNewArtist(e) {
-    const name = e.target.textContent;
     const id = e.target.dataset.artistid;
+    const name = e.target.textContent;
 
     spotify.getArtistRelatedArtists(id)
       .then(artistsResp => {

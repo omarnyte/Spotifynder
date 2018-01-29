@@ -72,7 +72,6 @@ function createCharts(e) {
   spotify.getArtistRelatedArtists(artistId)
     .then(relatedArtistsResp => {
       new RelatedArtistsChart(artistName, relatedArtistsResp);
-      // new BubbleChart(relatedArtistsResp);
       new Graph(relatedArtistsResp);
     });
 }
