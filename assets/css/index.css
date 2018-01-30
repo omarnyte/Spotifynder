@@ -25,19 +25,10 @@ h2 {
 
   color: white;
   letter-spacing: 2px;
-
-  /*display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;*/
 }
 
 .about-modal.hidden {
   display: none;
-}
-
-.about-modal-content {
-
 }
 
 .bar {
@@ -56,6 +47,12 @@ h2 {
 .close-modal-button {
   font-size: 100px;
   cursor: pointer;
+}
+
+.current-artist-name {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 25px;
 }
 
 .genre-graph-div {
@@ -94,8 +91,6 @@ h2 {
   right: 0;
   border: 15px solid gray;
 
-  /* background: #eca7c0; */
-
   overflow-x: scroll;
 
   display: flex;
@@ -103,15 +98,27 @@ h2 {
   align-items: center;
 
   background: #63b6db; /* Old browsers */
-background: -moz-linear-gradient(-45deg, #63b6db 0%, #309dcf 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(-45deg, #63b6db 0%,#309dcf 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(135deg, #63b6db 0%,#309dcf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  background: -moz-linear-gradient(-45deg, #63b6db 0%, #309dcf 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #63b6db 0%,#309dcf 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #63b6db 0%,#309dcf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', endColorstr='#309dcf',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 .logo {
   width: 75px;
-  width: 75px;
+  height: 75px;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.logo-text {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+  text-align: center;
 }
 
 .menu-div {
@@ -120,8 +127,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', end
 
   position: absolute;
   left: 0;
-
-  /* background: #303438; */
 
   display: flex;
   flex-direction: column;
@@ -240,8 +245,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', end
   color: red;
 }
 
-
-
 .search-modal {
   display: block;
   position: fixed;
@@ -307,8 +310,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#63b6db', end
 
 .top-menu {
   height: 300px;
+  width: 100%;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  /* display: flex;
+  flex-direction: column; */
+  /* justify-content: space-around; */
 }

@@ -60,212 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 174);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 174:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(176);
-
-
-
-
-const aboutButton = document.querySelector('.about-button');
-const aboutModal = document.querySelector('.about-modal');
-const chromePrompt = document.querySelector('.chrome-prompt');
-const closeModalButton = document.querySelector('.close-modal-button');
-const muteButton = document.querySelector('.mute-button');
-const nonChromePrompt = document.querySelector('.non-chrome-prompt');
-const returnButton = document.querySelector('.return-button');
-
-let token;
-
-window.muted = false;
-
-const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
-
-$.ajax({
-  url: '/callback',
-  success: function(response) {
-    token = response;
-    console.log('token', token);
-    spotify.setAccessToken(token);
-  }
-  // TODO on error, attempt to get new token
-});
-
-console.log(navigator.userAgent);
-if (navigator.userAgent.includes('Chrome')) {
-  nonChromePrompt.classList.add('hidden');
-} else {
-  chromePrompt.classList.add('hidden');
-
-}
-
-function toggleMute(e) {
-  if (window.muted == false) {
-    window.muted = true;
-    e.target.innerText = 'SOUND OFF';
-  } else {
-    window.muted = false;
-    e.target.innerText = 'SOUND ON';
-  }
-}
-
-
-aboutButton.addEventListener('click', () => {
-  aboutModal.classList.remove('hidden');
-});
-closeModalButton.addEventListener('click', () => {
-  aboutModal.classList.add('hidden');
-});
-muteButton.addEventListener('click', toggleMute);
-returnButton.addEventListener('click', () => {
-  aboutModal.classList.add('hidden');
-});
-
-
-/***/ }),
-
-/***/ 176:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__related_artists__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graph__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__);
-
-
-// import BubbleChart from './bubble_chart';
-
-
-
-
-const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a();
-
-let recording = false;
-
-const mic = document.querySelector('.microphone');
-const newSearchButton = document.querySelector('.new-search-button');
-const searchBar = document.querySelector('.search-bar');
-const searchForm = document.querySelector('.search-form');
-const searchModal = document.querySelector(".search-modal");
-const suggestions = document.querySelector('.suggestions');
-
-
-function fetchMatches() {
-  const searchQuery = searchBar.value;
-
-  // prevent sending an empty query and remove search results
-  if (searchQuery.length === 0) {
-      suggestions.classList.add('hidden');
-      suggestions.innerHTML = '';
-      return;
-  }
-
-  spotify.searchArtists(searchQuery, {limit: 5})
-    .then(queryResults => displayMatches(queryResults));
-}
-
-function displayMatches(queryResults) {
-  const artistResults = queryResults.artists.items;
-
-  suggestions.classList.remove('hidden');
-
-  const html = artistResults.map(artistObject => {
-    const name = artistObject.name;
-    const id = artistObject.id;
-    return `
-      <li class='suggestions-item'>
-        <span class="suggestions-item-name" data-artistId=${id}>${name}</span>
-      </li>
-  `;
-  }).join('');
-  suggestions.innerHTML = html;
-
-  appendEventListeners();
-}
-
-function appendEventListeners() {
-  const artistNameSpans = document.querySelectorAll('.suggestions-item-name');
-  // console.log(searchResultItems);
-  artistNameSpans.forEach(name => {
-    name.addEventListener('click', createCharts);
-  });
-}
-
-function createCharts(e) {
-  // Hide search modal and reveal charts
-  searchModal.classList.add("hidden");
-  suggestions.innerHTML = '';
-  searchForm.reset();
-
-  // charts.classList.remove("hidden");
-
-  const artistName = e.target.textContent;
-  const artistId = e.target.dataset.artistid;
-
-  spotify.getArtistRelatedArtists(artistId)
-    .then(relatedArtistsResp => {
-      new __WEBPACK_IMPORTED_MODULE_0__related_artists__["a" /* default */](artistName, relatedArtistsResp);
-      new __WEBPACK_IMPORTED_MODULE_1__graph__["a" /* default */](relatedArtistsResp);
-    });
-}
-
-function record() {
-  recording = true;
-  mic.classList.add('recording');
-  // console.log('recording', recording);
-
-  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  const recognition = new SpeechRecognition();
-  recognition.interimResults = true;
-
-  recognition.start();
-
-  recognition.addEventListener('result', e => {
-    const transcript = Array.from(e.results)
-      .map(result => result[0])
-      .map(result => result.transcript)
-      .join('');
-
-      searchBar.value = transcript;
-  });
-}
-
-function stopRecording() {
-  if (recording == false) return;
-
-  recording = false;
-  mic.classList.remove('recording');
-  
-  fetchMatches();
-}
-
-// prevent submission of form
-searchForm.addEventListener("submit", e => {
-  e.preventDefault();
-});
-searchBar.addEventListener('keyup', fetchMatches);
-mic.addEventListener('mousedown', record);
-document.addEventListener('mouseup', stopRecording);
-newSearchButton.addEventListener('click', () =>
-  searchModal.classList.remove('hidden')
-);
-
-
-/***/ }),
-
-/***/ 49:
+/******/ ([
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2006,14 +1805,305 @@ if (typeof module === 'object' && typeof module.exports === 'object') {
 
 
 /***/ }),
-
-/***/ 91:
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(49);
+class Graph {
+  constructor(relatedArtists) {
+    this.render(relatedArtists);
+  }
+
+  render(relatedArtists) {
+    this.populateGraph(relatedArtists);
+    this.appendListenersToBars();
+  }
+
+  populateGraph(relatedArtists) {
+    const graph = document.querySelector('.graph');
+    const genreNames = document.querySelector('.genre-names');
+
+    // clears previous graph
+    genreNames.innerHTML = '';
+    graph.innerHTML = '';
+
+    let genreCount = this.countGenres(relatedArtists);
+
+    Object.keys(genreCount).forEach(genre => {
+      const bar = document.createElement('div');
+      const width = genreCount[genre]['count'] * 40;
+
+      bar.className = 'bar';
+      bar.style.height = '25px';
+      bar.style.width = `${width}px`;
+      bar.dataset.artistIds = genreCount[genre]['artistIds'];
+      bar.dataset.genre = genre;
+      graph.append(bar);
+
+      const genreName = document.createElement('span');
+      genreName.innerText = genre;
+      genreNames.appendChild(genreName);
+    });
+  }
+
+  countGenres(relatedArtists) {
+    let genreCounter = {};
+
+    relatedArtists.artists.forEach(artist => {
+      artist.genres.forEach(genre => {
+        if (genreCounter[genre]) {
+          genreCounter[genre]['count'] += 1;
+          genreCounter[genre]['artistIds'].push(artist.id);
+        } else {
+          genreCounter[genre] = {
+            'count': 1,
+            'artistIds': [artist.id]
+          };
+        }
+      });
+    });
+
+    return genreCounter;
+  }
+
+  appendListenersToBars() {
+    const bars = document.querySelectorAll('.bar');
+    bars.forEach(bar => {
+      bar.addEventListener('mouseenter', this.highlightArtists);
+    });
+    bars.forEach(bar => {
+      bar.addEventListener('mouseleave', this.removeHighlights);
+    });
+  }
+
+  highlightArtists(e) {
+    const artistIdList = e.target.dataset.artistIds;
+
+    const allArtistNames = document.querySelectorAll('.related-artist-name');
+    allArtistNames.forEach(artistName => {
+      if (artistIdList.includes(artistName.dataset.artistid)) {
+        artistName.classList.add('highlighted');
+      }
+    });
+  }
+
+  removeHighlights(e) {
+    const highlightedArtists = document.querySelectorAll('.related-artist-name.highlighted');
+    highlightedArtists.forEach(artist => {
+      artist.className = 'related-artist-name';
+    });
+  }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Graph;
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graph__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search__ = __webpack_require__(3);
+
+
+
+
+const aboutButton = document.querySelector('.about-button');
+const aboutModal = document.querySelector('.about-modal');
+const chromePrompt = document.querySelector('.chrome-prompt');
+const closeModalButton = document.querySelector('.close-modal-button');
+const muteButton = document.querySelector('.mute-button');
+const nonChromePrompt = document.querySelector('.non-chrome-prompt');
+const returnButton = document.querySelector('.return-button');
+
+let token;
+
+window.muted = false;
+
+const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a();
+
+$.ajax({
+  url: '/callback',
+  success: function(response) {
+    token = response;
+    console.log('token', token);
+    spotify.setAccessToken(token);
+  }
+  // TODO on error, attempt to get new token
+});
+
+console.log(navigator.userAgent);
+if (navigator.userAgent.includes('Chrome')) {
+  nonChromePrompt.classList.add('hidden');
+} else {
+  chromePrompt.classList.add('hidden');
+
+}
+
+function toggleMute(e) {
+  if (window.muted == false) {
+    window.muted = true;
+    e.target.innerText = 'SOUND OFF';
+  } else {
+    window.muted = false;
+    e.target.innerText = 'SOUND ON';
+  }
+}
+
+
+aboutButton.addEventListener('click', () => {
+  aboutModal.classList.remove('hidden');
+});
+closeModalButton.addEventListener('click', () => {
+  aboutModal.classList.add('hidden');
+});
+muteButton.addEventListener('click', toggleMute);
+returnButton.addEventListener('click', () => {
+  aboutModal.classList.add('hidden');
+});
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__related_artists__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graph__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js__);
+
+
+// import BubbleChart from './bubble_chart';
+
+
+
+
+const spotify = new __WEBPACK_IMPORTED_MODULE_2_spotify_web_api_js___default.a();
+
+let recording = false;
+
+const mic = document.querySelector('.microphone');
+const newSearchButton = document.querySelector('.new-search-button');
+const searchBar = document.querySelector('.search-bar');
+const searchForm = document.querySelector('.search-form');
+const searchModal = document.querySelector(".search-modal");
+const suggestions = document.querySelector('.suggestions');
+
+
+function fetchMatches() {
+  const searchQuery = searchBar.value;
+
+  // prevent sending an empty query and remove search results
+  if (searchQuery.length === 0) {
+      suggestions.classList.add('hidden');
+      suggestions.innerHTML = '';
+      return;
+  }
+
+  spotify.searchArtists(searchQuery, {limit: 5})
+    .then(queryResults => displayMatches(queryResults));
+}
+
+function displayMatches(queryResults) {
+  const artistResults = queryResults.artists.items;
+
+  suggestions.classList.remove('hidden');
+
+  const html = artistResults.map(artistObject => {
+    const name = artistObject.name;
+    const id = artistObject.id;
+    return `
+      <li class='suggestions-item'>
+        <span class="suggestions-item-name" data-artistId=${id}>${name}</span>
+      </li>
+  `;
+  }).join('');
+  suggestions.innerHTML = html;
+
+  appendEventListeners();
+}
+
+function appendEventListeners() {
+  const artistNameSpans = document.querySelectorAll('.suggestions-item-name');
+  // console.log(searchResultItems);
+  artistNameSpans.forEach(name => {
+    name.addEventListener('click', createCharts);
+  });
+}
+
+function createCharts(e) {
+  // Hide search modal and reveal charts
+  searchModal.classList.add("hidden");
+  suggestions.innerHTML = '';
+  searchForm.reset();
+
+  // charts.classList.remove("hidden");
+
+  const artistName = e.target.textContent;
+  const artistId = e.target.dataset.artistid;
+
+  spotify.getArtistRelatedArtists(artistId)
+    .then(relatedArtistsResp => {
+      new __WEBPACK_IMPORTED_MODULE_0__related_artists__["a" /* default */](artistName, relatedArtistsResp);
+      new __WEBPACK_IMPORTED_MODULE_1__graph__["a" /* default */](relatedArtistsResp);
+    });
+}
+
+function record() {
+  recording = true;
+  mic.classList.add('recording');
+  // console.log('recording', recording);
+
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+
+  recognition.start();
+
+  recognition.addEventListener('result', e => {
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
+
+      searchBar.value = transcript;
+  });
+}
+
+function stopRecording() {
+  if (recording == false) return;
+
+  recording = false;
+  mic.classList.remove('recording');
+  
+  fetchMatches();
+}
+
+// prevent submission of form
+searchForm.addEventListener("submit", e => {
+  e.preventDefault();
+});
+searchBar.addEventListener('keyup', fetchMatches);
+mic.addEventListener('mousedown', record);
+document.addEventListener('mouseup', stopRecording);
+newSearchButton.addEventListener('click', () =>
+  searchModal.classList.remove('hidden')
+);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__graph__ = __webpack_require__(1);
 
 
 
@@ -2026,7 +2116,7 @@ class relatedArtists {
   }
 
   render(artistName, relatedArtistObject) {
-    // clears previous related artists chart
+    // clears previous related artists chart, if any
     let relatedArtistsChart = document.querySelector(".related-artists-index");
     relatedArtistsChart.innerHTML = '<div class="previews"></div>';
 
@@ -2044,10 +2134,19 @@ class relatedArtists {
 
   populateChart(artistName, relatedArtistsObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-index");
+    const topMenu = document.querySelector(".top-menu");
 
-    const h2 = document.createElement("h2");
-    h2.textContent = `Related to ${artistName}`;
-    relatedArtistsChart.appendChild(h2);
+    // clear previous artist, if any
+    if (document.querySelector('.current-artist-name')) {
+      const currentArtistName = document.querySelector('.current-artist-name');
+      currentArtistName.textContent = `Related to ${artistName}`;
+    } else {
+      const h2 = document.createElement("h2");
+      h2.textContent = `Related to ${artistName}`;
+      h2.className = 'current-artist-name';
+      topMenu.appendChild(h2);
+    }
+
 
     relatedArtistsObject.artists.forEach((artist, idx) => {
       const li = document.createElement("li");
@@ -2166,101 +2265,5 @@ class relatedArtists {
 
 
 
-/***/ }),
-
-/***/ 92:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-class Graph {
-  constructor(relatedArtists) {
-    this.render(relatedArtists);
-  }
-
-  render(relatedArtists) {
-    this.populateGraph(relatedArtists);
-    this.appendListenersToBars();
-  }
-
-  populateGraph(relatedArtists) {
-    const graph = document.querySelector('.graph');
-    const genreNames = document.querySelector('.genre-names');
-
-    // clears previous graph
-    genreNames.innerHTML = '';
-    graph.innerHTML = '';
-
-    let genreCount = this.countGenres(relatedArtists);
-
-    Object.keys(genreCount).forEach(genre => {
-      const bar = document.createElement('div');
-      const width = genreCount[genre]['count'] * 40;
-
-      bar.className = 'bar';
-      bar.style.height = '25px';
-      bar.style.width = `${width}px`;
-      bar.dataset.artistIds = genreCount[genre]['artistIds'];
-      bar.dataset.genre = genre;
-      graph.append(bar);
-
-      const genreName = document.createElement('span');
-      genreName.innerText = genre;
-      genreNames.appendChild(genreName);
-    });
-  }
-
-  countGenres(relatedArtists) {
-    let genreCounter = {};
-
-    relatedArtists.artists.forEach(artist => {
-      artist.genres.forEach(genre => {
-        if (genreCounter[genre]) {
-          genreCounter[genre]['count'] += 1;
-          genreCounter[genre]['artistIds'].push(artist.id);
-        } else {
-          genreCounter[genre] = {
-            'count': 1,
-            'artistIds': [artist.id]
-          };
-        }
-      });
-    });
-
-    return genreCounter;
-  }
-
-  appendListenersToBars() {
-    const bars = document.querySelectorAll('.bar');
-    bars.forEach(bar => {
-      bar.addEventListener('mouseenter', this.highlightArtists);
-    });
-    bars.forEach(bar => {
-      bar.addEventListener('mouseleave', this.removeHighlights);
-    });
-  }
-
-  highlightArtists(e) {
-    const artistIdList = e.target.dataset.artistIds;
-
-    const allArtistNames = document.querySelectorAll('.related-artist-name');
-    allArtistNames.forEach(artistName => {
-      if (artistIdList.includes(artistName.dataset.artistid)) {
-        artistName.classList.add('highlighted');
-      }
-    });
-  }
-
-  removeHighlights(e) {
-    const highlightedArtists = document.querySelectorAll('.related-artist-name.highlighted');
-    highlightedArtists.forEach(artist => {
-      artist.className = 'related-artist-name';
-    });
-  }
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = Graph;
-
-
-
 /***/ })
-
-/******/ });
+/******/ ]);

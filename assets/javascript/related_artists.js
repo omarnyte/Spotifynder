@@ -10,7 +10,7 @@ export default class relatedArtists {
   }
 
   render(artistName, relatedArtistObject) {
-    // clears previous related artists chart
+    // clears previous related artists chart, if any
     let relatedArtistsChart = document.querySelector(".related-artists-index");
     relatedArtistsChart.innerHTML = '<div class="previews"></div>';
 
@@ -28,10 +28,19 @@ export default class relatedArtists {
 
   populateChart(artistName, relatedArtistsObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-index");
+    const topMenu = document.querySelector(".top-menu");
 
-    const h2 = document.createElement("h2");
-    h2.textContent = `Related to ${artistName}`;
-    relatedArtistsChart.appendChild(h2);
+    // clear previous artist, if any
+    if (document.querySelector('.current-artist-name')) {
+      const currentArtistName = document.querySelector('.current-artist-name');
+      currentArtistName.textContent = `Related to ${artistName}`;
+    } else {
+      const h2 = document.createElement("h2");
+      h2.textContent = `Related to ${artistName}`;
+      h2.className = 'current-artist-name';
+      topMenu.appendChild(h2);
+    }
+
 
     relatedArtistsObject.artists.forEach((artist, idx) => {
       const li = document.createElement("li");
