@@ -38,6 +38,10 @@ h1 {
   margin-bottom: 5px;
 }
 
+.bar.highlighted {
+  background: white;
+}
+
 .chrome-prompt.hidden {
   display: none;
 }

@@ -2023,7 +2023,6 @@ const spotify = new __WEBPACK_IMPORTED_MODULE_0_spotify_web_api_js___default.a()
 
 class relatedArtists {
   constructor(artistName, relatedArtistObject){
-    // console.log('artistName', artistName);
     this.render(artistName, relatedArtistObject);
   }
 
@@ -2065,6 +2064,7 @@ class relatedArtists {
       span.textContent = artist.name;
       span.className = 'related-artist-name';
       span.setAttribute('data-artistId', artist.id);
+      span.setAttribute('data-genres', artist.genres);
       li.appendChild(span);
     });
   }
@@ -2091,11 +2091,9 @@ class relatedArtists {
     });
     relatedArtistsIds.forEach(id => {
       const previews = document.querySelector('.previews');
-      // console.log('previews', previews);
       let audio = document.createElement('audio');
       spotify.getArtistTopTracks(id, 'US')
       .then(topTracksResp => {
-        // console.log('topTracksResp', topTracksResp);
         audio.setAttribute('data-artistId', id);
         audio.src = topTracksResp.tracks[0].preview_url;
         previews.appendChild(audio);
@@ -2124,16 +2122,32 @@ class relatedArtists {
 
     spotify.getArtistRelatedArtists(id)
       .then(artistsResp => {
-        console.log(artistsResp);
         new relatedArtists(name, artistsResp);
         new __WEBPACK_IMPORTED_MODULE_1__graph__["a" /* default */](artistsResp);
       });
   }
 
+  highlightBars(e) {
+    const allBars = document.querySelectorAll('.bar');
+    const artistGenres = e.target.dataset.genres.split(',');
+
+    allBars.forEach(bar => {
+      artistGenres.forEach(genre => {
+        if (bar.dataset.genre == genre) {
+          bar.classList.add('highlighted');
+        }
+      });
+    });
+  }
+
   appendListenersToArtists() {
     const allRelatedArtists = document.querySelectorAll('.related-artist-name');
+
     allRelatedArtists.forEach(artist => {
       artist.addEventListener('click', this.fetchNewArtist);
+    });
+    allRelatedArtists.forEach(artist => {
+      artist.addEventListener('mouseenter', this.highlightBars);
     });
   }
 }
@@ -2149,7 +2163,6 @@ class relatedArtists {
 "use strict";
 class Graph {
   constructor(relatedArtists) {
-    // console.log('related artists', relatedArtists);
     this.render(relatedArtists);
   }
 
@@ -2160,7 +2173,6 @@ class Graph {
 
   populateGraph(relatedArtists) {
     const graph = document.querySelector('.graph');
-    // console.log('graph', graph);
     const genreNames = document.querySelector('.genre-names');
 
     // clears previous graph
@@ -2168,7 +2180,6 @@ class Graph {
     graph.innerHTML = '';
 
     let genreCount = this.countGenres(relatedArtists);
-    // console.log('genre count', genreCount);
 
     Object.keys(genreCount).forEach(genre => {
       const bar = document.createElement('div');
@@ -2178,14 +2189,13 @@ class Graph {
       bar.style.height = '25px';
       bar.style.width = `${width}px`;
       bar.dataset.artistIds = genreCount[genre]['artistIds'];
+      bar.dataset.genre = genre;
       graph.append(bar);
 
       const genreName = document.createElement('span');
-      genreName.innerHTML = genre;
+      genreName.innerText = genre;
       genreNames.appendChild(genreName);
-
     });
-
   }
 
   countGenres(relatedArtists) {

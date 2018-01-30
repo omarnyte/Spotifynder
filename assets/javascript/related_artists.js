@@ -6,7 +6,6 @@ const spotify = new Spotify();
 
 export default class relatedArtists {
   constructor(artistName, relatedArtistObject){
-    // console.log('artistName', artistName);
     this.render(artistName, relatedArtistObject);
   }
 
@@ -48,6 +47,7 @@ export default class relatedArtists {
       span.textContent = artist.name;
       span.className = 'related-artist-name';
       span.setAttribute('data-artistId', artist.id);
+      span.setAttribute('data-genres', artist.genres);
       li.appendChild(span);
     });
   }
@@ -74,11 +74,9 @@ export default class relatedArtists {
     });
     relatedArtistsIds.forEach(id => {
       const previews = document.querySelector('.previews');
-      // console.log('previews', previews);
       let audio = document.createElement('audio');
       spotify.getArtistTopTracks(id, 'US')
       .then(topTracksResp => {
-        // console.log('topTracksResp', topTracksResp);
         audio.setAttribute('data-artistId', id);
         audio.src = topTracksResp.tracks[0].preview_url;
         previews.appendChild(audio);
@@ -107,16 +105,32 @@ export default class relatedArtists {
 
     spotify.getArtistRelatedArtists(id)
       .then(artistsResp => {
-        console.log(artistsResp);
         new relatedArtists(name, artistsResp);
         new Graph(artistsResp);
       });
   }
 
+  highlightBars(e) {
+    const allBars = document.querySelectorAll('.bar');
+    const artistGenres = e.target.dataset.genres.split(',');
+
+    allBars.forEach(bar => {
+      artistGenres.forEach(genre => {
+        if (bar.dataset.genre == genre) {
+          bar.classList.add('highlighted');
+        }
+      });
+    });
+  }
+
   appendListenersToArtists() {
     const allRelatedArtists = document.querySelectorAll('.related-artist-name');
+
     allRelatedArtists.forEach(artist => {
       artist.addEventListener('click', this.fetchNewArtist);
+    });
+    allRelatedArtists.forEach(artist => {
+      artist.addEventListener('mouseenter', this.highlightBars);
     });
   }
 }
