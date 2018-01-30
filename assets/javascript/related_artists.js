@@ -123,6 +123,14 @@ export default class relatedArtists {
     });
   }
 
+removeHighlights() {
+  const highlightedBars = document.querySelectorAll('.bar.highlighted');
+  highlightedBars.forEach(bar => {
+    bar.className = 'bar';
+  });
+}
+
+
   appendListenersToArtists() {
     const allRelatedArtists = document.querySelectorAll('.related-artist-name');
 
@@ -131,6 +139,9 @@ export default class relatedArtists {
     });
     allRelatedArtists.forEach(artist => {
       artist.addEventListener('mouseenter', this.highlightBars);
+    });
+    allRelatedArtists.forEach(artist => {
+      artist.addEventListener('mouseleave', this.removeHighlights);
     });
   }
 }
