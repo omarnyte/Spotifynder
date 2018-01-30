@@ -103,8 +103,7 @@ function stopRecording() {
 
   recording = false;
   mic.classList.remove('recording');
-  // console.log('recording', recording);
-
+  
   fetchMatches();
 }
 

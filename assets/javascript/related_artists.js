@@ -29,9 +29,10 @@ export default class relatedArtists {
   populateChart(artistName, relatedArtistsObject) {
     const relatedArtistsChart = document.querySelector(".related-artists-index");
 
-    // const h1 = document.createElement("h1");
-    // h1.textContent = `Related to ${artistName}`;
-    // relatedArtistsChart.appendChild(h1);
+    const h2 = document.createElement("h2");
+    h2.textContent = `Related to ${artistName}`;
+    relatedArtistsChart.appendChild(h2);
+
     relatedArtistsObject.artists.forEach((artist, idx) => {
       const li = document.createElement("li");
       li.className = 'related-artists-item';
@@ -123,12 +124,12 @@ export default class relatedArtists {
     });
   }
 
-removeHighlights() {
-  const highlightedBars = document.querySelectorAll('.bar.highlighted');
-  highlightedBars.forEach(bar => {
-    bar.className = 'bar';
-  });
-}
+  removeHighlights() {
+    const highlightedBars = document.querySelectorAll('.bar.highlighted');
+    highlightedBars.forEach(bar => {
+      bar.className = 'bar';
+    });
+  }
 
 
   appendListenersToArtists() {

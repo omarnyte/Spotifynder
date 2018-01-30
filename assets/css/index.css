@@ -1,6 +1,13 @@
 h1 {
+  font-size: 25px;
   font-weight: lighter;
   font-family: "Helvetica","Arial",sans-serif;
+  color: white;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: lighter;
   color: white;
 }
 
@@ -69,7 +76,8 @@ h1 {
 
 .genre-names > span {
   height: 25px;
-  margin-bottom: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   color: #303438;
 }
 
