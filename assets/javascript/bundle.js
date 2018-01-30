@@ -2170,41 +2170,14 @@ class Graph {
     let genreCount = this.countGenres(relatedArtists);
     // console.log('genre count', genreCount);
 
-    // const graph = document.querySelector('.graph');
-    // Object.keys(genreCount).forEach(genre => {
-    //   var bar = document.createElement('rect');
-    //   bar.setAttribute('width', '500');
-    //   bar.setAttribute('height', '500');
-    //   // bar.setAttribute('fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
-    //   bar.style.fill = 'rgb(0,0,255)';
-    //   graph.appendChild(bar);
-    // });
-
-    // with SVG rather than standard div
-    // var svgns = "http://www.w3.org/2000/svg";
-    // let y = 0;
-    // Object.keys(genreCount).forEach(genre => {
-    //   const width = genreCount[genre] * 30;
-    //   y += 30;
-    //
-    //   var rect = document.createElementNS(svgns, 'rect');
-    //   rect.setAttributeNS(null, 'y', y);
-    //   rect.setAttributeNS(null, 'height', '25');
-    //   rect.setAttributeNS(null, 'width', width);
-    //   rect.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
-    //   graph.appendChild(rect);
-    // });
-    // console.log(document.querySelectorAll('rect'));
-
-    // with standard div
     Object.keys(genreCount).forEach(genre => {
       const bar = document.createElement('div');
-
-      const width = genreCount[genre] * 40;
+      const width = genreCount[genre]['count'] * 40;
 
       bar.className = 'bar';
       bar.style.height = '25px';
       bar.style.width = `${width}px`;
+      bar.dataset.artistIds = genreCount[genre]['artistIds'];
       graph.append(bar);
 
       const genreName = document.createElement('span');
@@ -2221,27 +2194,46 @@ class Graph {
     relatedArtists.artists.forEach(artist => {
       artist.genres.forEach(genre => {
         if (genreCounter[genre]) {
-          genreCounter[genre] += 1;
+          genreCounter[genre]['count'] += 1;
+          genreCounter[genre]['artistIds'].push(artist.id);
         } else {
-          genreCounter[genre] = 1;
+          genreCounter[genre] = {
+            'count': 1,
+            'artistIds': [artist.id]
+          };
         }
       });
     });
 
-    // console.log(genreCounter);
     return genreCounter;
   }
 
   appendListenersToBars() {
-    const bars = document.querySelectorAll('rect');
+    const bars = document.querySelectorAll('.bar');
     bars.forEach(bar => {
       bar.addEventListener('mouseenter', this.highlightArtists);
-      });
+    });
+    bars.forEach(bar => {
+      bar.addEventListener('mouseleave', this.removeHighlights);
+    });
   }
 
   highlightArtists(e) {
-    const allArtists = document.querySelectorAll('.related-artists-item-div');
-    console.log(allArtists);
+    const artistIdList = e.target.dataset.artistIds;
+
+    const allArtistNames = document.querySelectorAll('.related-artist-name');
+    allArtistNames.forEach(artistName => {
+      if (artistIdList.includes(artistName.dataset.artistid)) {
+        artistName.classList.add('highlighted');
+      }
+    });
+  }
+
+  removeHighlights(e) {
+    const highlightedArtists = document.querySelectorAll('.related-artist-name.highlighted');
+    highlightedArtists.forEach(artist => {
+      artist.className = 'related-artist-name';
+    });
   }
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = Graph;
