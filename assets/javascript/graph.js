@@ -11,36 +11,38 @@ export default class Graph {
 
   populateGraph(relatedArtists) {
     const graph = document.querySelector('.graph');
-    const genreNames = document.querySelector('.genre-names');
 
     // clears previous graph, if any
-    genreNames.innerHTML = '';
     graph.innerHTML = '';
 
     let genreCount = this.countGenres(relatedArtists);
-    console.log(genreCount);
 
     Object.keys(genreCount).forEach(genre => {
-      const bar = document.createElement('div');
-      const width = genreCount[genre]['count'] * 40;
+      // create each row (which includes the genre name, count, and bar)
+      const graphRow = document.createElement('div');
+      graphRow.className = 'graph-row';
+      graph.appendChild(graphRow);
+
+      // create the genre name div (to flex) and span
+      const genreDiv = document.createElement('div');
+      genreDiv.className = 'genre-div';
+      graphRow.appendChild(genreDiv);
+
+      const genreName = document.createElement('span');
+      genreName.className = 'genre-name';
+      genreName.innerText = `${genre} (${genreCount[genre]['count']})`;
+      genreDiv.appendChild(genreName);
 
       // create bars
+      const bar = document.createElement('div');
+      const width = genreCount[genre]['count'] * 40;
       bar.className = 'bar';
       bar.style.height = '25px';
       bar.style.width = `${width}px`;
       bar.dataset.artistIds = genreCount[genre]['artistIds'];
       bar.dataset.genre = genre;
-      graph.append(bar);
+      graphRow.append(bar);
 
-      // create genre count span
-      // const count = document.createElement('span');
-      // count.innerText = genreCount[genre]['count'];
-      // bar.appendChild(count);
-
-      // create genre span
-      const genreName = document.createElement('span');
-      genreName.innerText = `${genre} (${genreCount[genre]['count']})`;
-      genreNames.appendChild(genreName);
     });
   }
 
