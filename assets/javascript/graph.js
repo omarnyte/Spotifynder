@@ -4,6 +4,7 @@ export default class Graph {
   }
 
   render(relatedArtists) {
+    console.log(relatedArtists);
     this.populateGraph(relatedArtists);
     this.appendListenersToBars();
   }
@@ -12,16 +13,18 @@ export default class Graph {
     const graph = document.querySelector('.graph');
     const genreNames = document.querySelector('.genre-names');
 
-    // clears previous graph
+    // clears previous graph, if any
     genreNames.innerHTML = '';
     graph.innerHTML = '';
 
     let genreCount = this.countGenres(relatedArtists);
+    console.log(genreCount);
 
     Object.keys(genreCount).forEach(genre => {
       const bar = document.createElement('div');
       const width = genreCount[genre]['count'] * 40;
 
+      // create bars
       bar.className = 'bar';
       bar.style.height = '25px';
       bar.style.width = `${width}px`;
@@ -29,8 +32,14 @@ export default class Graph {
       bar.dataset.genre = genre;
       graph.append(bar);
 
+      // create genre count span
+      // const count = document.createElement('span');
+      // count.innerText = genreCount[genre]['count'];
+      // bar.appendChild(count);
+
+      // create genre span
       const genreName = document.createElement('span');
-      genreName.innerText = genre;
+      genreName.innerText = `${genre} (${genreCount[genre]['count']})`;
       genreNames.appendChild(genreName);
     });
   }

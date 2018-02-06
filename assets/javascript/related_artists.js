@@ -140,7 +140,6 @@ export default class relatedArtists {
     });
   }
 
-
   appendListenersToArtists() {
     const allRelatedArtists = document.querySelectorAll('.related-artist-name');
 

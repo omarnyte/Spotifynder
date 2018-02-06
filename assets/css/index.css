@@ -79,8 +79,11 @@ h2 {
 }
 
 .graph {
+  height: 100%;
+  width: 90%;
   padding-left: 2px;
   border-left: 2px solid black;
+  border-bottom: 2px solid black;
 }
 
 .graph-div {
@@ -259,11 +262,6 @@ h2 {
 
   color: white;
   letter-spacing: 2px;
-
-  /*display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;*/
 }
 
 .search-modal.hidden {
@@ -311,6 +309,8 @@ h2 {
 .top-menu {
   height: 300px;
   width: 100%;
+  border-bottom: 2px dotted white;
+  margin-bottom: 25px;
 
   /* display: flex;
   flex-direction: column; */
